@@ -222,86 +222,48 @@
 // =========================================================
 // BACK TO DASHBOARD
 // =========================================================
-function goBack() {
+   function getFromRole() {
+       const params = new URLSearchParams(window.location.search);
+       return params.get("from");
+   }
 
-    const from =
-        localStorage.getItem("marketPriceFrom");
+   function goBack() {
+       const from = getFromRole();
 
-
-    if (from === "customer") {
-
-        window.location.href =
-            "customer-dashboard.html";
-
-    }
-
-    else if (from === "wholesaler") {
-
-        window.location.href =
-            "wholesaler-dashboard.html";
-
-    }
-
-    else if (from === "farmer") {
-
-        window.location.href =
-            "farmer-dashboard.html";
-
-    }
-
-    else {
-
-        // Safe fallback
-        window.location.href =
-            "index.html";
-
-    }
-
-}
-
-
+       if (from === "customer") {
+           window.location.href = "customer-dashboard.html";
+       }
+       else if (from === "wholesaler") {
+           window.location.href = "wholesaler-dashboard.html";
+       }
+       else if (from === "farmer") {
+           window.location.href = "farmer-dashboard.html";
+       }
+       else {
+           window.location.href = "index.html";
+       }
+   }
 
 // =========================================================
 // OPEN PROFILE
 // =========================================================
 
-function openProfile() {
+   function openProfile() {
+       const from = getFromRole();
 
-    const from =
-        localStorage.getItem("marketPriceFrom");
-
-
-    if (from === "customer") {
-
-        window.location.href =
-            "customer-dashboard.html";
-
-    }
-
-    else if (from === "wholesaler") {
-
-        window.location.href =
-            "wholesaler-dashboard.html";
-
-    }
-
-    else if (from === "farmer") {
-
-        window.location.href =
-            "farmer-dashboard.html";
-
-    }
-
-    else {
-
-        window.location.href =
-            "index.html";
-
-    }
-
-}
-
-
+       if (from === "customer") {
+           window.location.href = "customer-dashboard.html";
+       }
+       else if (from === "wholesaler") {
+           window.location.href = "wholesaler-dashboard.html";
+       }
+       else if (from === "farmer") {
+           window.location.href = "farmer-dashboard.html";
+       }
+       else {
+           window.location.href = "index.html";
+       }
+   }
 
 // =========================================================
 // GLOBAL MARKET DATA
