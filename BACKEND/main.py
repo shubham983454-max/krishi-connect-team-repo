@@ -36,7 +36,18 @@ app = FastAPI(
     version="1.0.0"
 )
 
+@app.on_event("startup")
+def run_import_on_startup():
+    from database import SessionLocal
+    from models import MarketPrice
 
+    db = SessionLocal()
+    count = db.query(MarketPrice).count()
+    db.close()
+
+    if count == 0:
+        import subprocess
+        subprocess.run(["python", "import_data.py"])
 # =========================================================
 # CORS
 # =========================================================
