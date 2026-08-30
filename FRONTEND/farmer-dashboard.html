@@ -521,13 +521,8 @@ function getFarmerData() {
 
 function openFarmerMarketPrices() {
 
-    localStorage.setItem(
-        "marketPriceFrom",
-        "farmer"
-    );
-
     window.location.href =
-        "market-prices.html";
+        "market-prices.html?from=farmer";
 
 }
 
