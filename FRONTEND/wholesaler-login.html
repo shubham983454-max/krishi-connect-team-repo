@@ -196,35 +196,44 @@ loginForm.addEventListener(
                 await response.json();
 
 
-            if (response.ok) {
+         if (response.ok && data.wholesaler_id) {
 
+    const wholesalerData = {
+        wholesaler_id: Number(data.wholesaler_id),
+        company_name: data.company_name || "",
+        email: data.email || "",
+        company_location: data.company_location || ""
+    };
 
-                // Save wholesaler information
+    localStorage.setItem(
+        "wholesalerId",
+        String(wholesalerData.wholesaler_id)
+    );
 
-                localStorage.setItem(
-                    "wholesalerId",
-                    data.wholesaler_id
-                );
+    localStorage.setItem(
+        "wholesalerData",
+        JSON.stringify(wholesalerData)
+    );
 
+    console.log(
+        "WHOLESALER DATA SAVED:",
+        wholesalerData
+    );
 
-                localStorage.setItem(
-                    "wholesalerData",
-                    JSON.stringify({
+    message.textContent =
+        "Login successful!";
 
-                        wholesaler_id:
-                            data.wholesaler_id,
+    message.style.color =
+        "#267a35";
 
-                        company_name:
-                            data.company_name,
+    setTimeout(function() {
 
-                        email:
-                            data.email,
+        window.location.href =
+            "wholesaler-dashboard.html";
 
-                        company_location:
-                            data.company_location
+    }, 500);
 
-                    })
-                );
+}
 
 
                 message.textContent =
