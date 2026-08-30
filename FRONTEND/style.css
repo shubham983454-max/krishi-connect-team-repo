@@ -349,7 +349,8 @@ nav button:last-child {
 
     .card,
     .card-customer,
-    .card-wholesaler {
+    .card-wholesaler,
+    .card-transportation {
         width: 100%;
     }
 }
