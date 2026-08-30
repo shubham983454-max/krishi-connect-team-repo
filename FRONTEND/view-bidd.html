@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+```
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>View Bids</title>
+
+<link rel="stylesheet"
+      href="view-bidd.css">
+```
+
+</head>
+
+<body>
+
+<div class="page-container">
+
+```
+<div class="bid-box">
+
+
+    <!-- ================================================= -->
+    <!-- HEADER -->
+    <!-- ================================================= -->
+
+    <div class="page-header">
+
+        <h1>View Bids</h1>
+
+        <p>
+            View your crop slots and bids received from wholesalers.
+        </p>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- OPTIONS -->
+    <!-- ================================================= -->
+
+    <div class="options">
+
+        <button
+            class="option active"
+            onclick="showSection('myCreatedBids', this)">
+
+            My Created Slots
+
+        </button>
+
+
+        <button
+            class="option"
+            onclick="showSection('wholesalerBids', this)">
+
+            Bids From Wholesalers
+
+        </button>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- MY CREATED SLOTS -->
+    <!-- ================================================= -->
+
+    <div
+        id="myCreatedBids"
+        class="section">
+
+
+        <h2>My Created Slots</h2>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Crop Name</th>
+
+                        <th>Crop ID</th>
+
+                        <th>Quantity</th>
+
+                        <th>Expected Price</th>
+
+                        <th>Available Date</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody
+                    id="myCreatedBidsTable">
+
+                    <tr>
+
+                        <td
+                            colspan="6"
+                            class="no-data">
+
+                            Loading...
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- WHOLESALER BIDS -->
+    <!-- ================================================= -->
+
+    <div
+        id="wholesalerBids"
+        class="section"
+        style="display: none;">
+
+
+        <h2>Bids From Wholesalers</h2>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Crop Name</th>
+
+                        <th>Bid ID</th>
+
+                        <th>Company</th>
+
+                        <th>Location</th>
+
+                        <th>Bid Price</th>
+
+                        <th>Price Unit</th>
+
+                        <th>Quantity</th>
+
+                        <th>Status</th>
+
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody
+                    id="wholesalerBidsTable">
+
+                    <tr>
+
+                        <td
+                            colspan="9"
+                            class="no-data">
+
+                            Click "Bids From Wholesalers"
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- RESPONSE FORM -->
+    <!-- ================================================= -->
+
+    <div
+        id="responseBox"
+        style="display: none;">
+
+        <h2>Respond To Bid</h2>
+
+        <p id="responseBidInfo"></p>
+
+
+        <div>
+
+            <label for="responsePrice">
+                Your Offered Price
+            </label>
+
+            <input
+                type="number"
+                id="responsePrice"
+                min="0"
+                step="0.01"
+                placeholder="Enter your offered price"
+                required>
+
+        </div>
+
+
+        <br>
+
+
+        <div>
+
+            <label for="responseQuantity">
+                Quantity
+            </label>
+
+            <input
+                type="number"
+                id="responseQuantity"
+                min="1"
+                step="0.01"
+                placeholder="Enter quantity"
+                required>
+
+        </div>
+
+
+        <br>
+
+
+        <button
+            type="button"
+            onclick="submitBidResponse()">
+
+            Submit Response
+
+        </button>
+
+
+        <button
+            type="button"
+            onclick="closeResponseBox()">
+
+            Cancel
+
+        </button>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- MESSAGE -->
+    <!-- ================================================= -->
+
+    <p id="pageMessage"></p>
+
+
+    <!-- ================================================= -->
+    <!-- BACK -->
+    <!-- ================================================= -->
+
+    <button
+        class="back-button"
+        onclick="window.location.href='farmer-dashboard.html'">
+
+        Back to Dashboard
+
+    </button>
+
+
+</div>
+```
+
+</div>
+
+<script>
+
+
+// =========================================================
+// API
+// =========================================================
+
+const API_URL =
+    "http://127.0.0.1:8000";
+
+
+// =========================================================
+// FARMER DATA
+// =========================================================
+
+const farmerData =
+    localStorage.getItem("farmerData");
+
+
+let farmer = null;
+
+
+if (!farmerData) {
+
+    alert(
+        "Please login as a farmer first."
+    );
+
+    window.location.href =
+        "login.html";
+
+}
+else {
+
+    try {
+
+        farmer =
+            JSON.parse(farmerData);
+
+
+        if (!farmer.farmer_id) {
+
+            throw new Error(
+                "Farmer ID missing"
+            );
+
+        }
+
+    }
+
+    catch(error) {
+
+        console.error(error);
+
+        alert(
+            "Farmer login data is invalid. Please login again."
+        );
+
+        localStorage.removeItem(
+            "farmerData"
+        );
+
+        window.location.href =
+            "login.html";
+
+    }
+
+}
+
+
+// =========================================================
+// RESPONSE VARIABLES
+// =========================================================
+
+let selectedBidId = null;
+
+let selectedCropSlotId = null;
+
+let selectedBid = null;
+
+let farmerSlots = [];
+
+
+// =========================================================
+// ELEMENTS
+// =========================================================
+
+const pageMessage =
+    document.getElementById(
+        "pageMessage"
+    );
+
+const responseBox =
+    document.getElementById(
+        "responseBox"
+    );
+
+const responseBidInfo =
+    document.getElementById(
+        "responseBidInfo"
+    );
+
+
+// =========================================================
+// SHOW SECTION
+// =========================================================
+
+function showSection(
+    sectionId,
+    clickedButton
+) {
+
+    document.getElementById(
+        "myCreatedBids"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "wholesalerBids"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        sectionId
+    ).style.display = "block";
+
+
+    const buttons =
+        document.querySelectorAll(
+            ".option"
+        );
+
+
+    buttons.forEach(
+        function(button) {
+
+            button.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+
+    clickedButton.classList.add(
+        "active"
+    );
+
+
+    if (
+        sectionId ===
+        "wholesalerBids"
+    ) {
+
+        loadWholesalerBids();
+
+    }
+
+}
+
+
+// =========================================================
+// LOAD MY CROP SLOTS
+// =========================================================
+
+async function loadMyCreatedSlots() {
+
+    const table =
+        document.getElementById(
+            "myCreatedBidsTable"
+        );
+
+
+    try {
+
+        const response =
+            await fetch(
+
+                API_URL +
+                "/api/farmers/" +
+                farmer.farmer_id +
+                "/crop-slots"
+
+            );
+
+
+        const responseText =
+            await response.text();
+
+
+        let data;
+
+
+        try {
+
+            data =
+                JSON.parse(
+                    responseText
+                );
+
+        }
+
+        catch(error) {
+
+            throw new Error(
+                "Invalid backend response"
+            );
+
+        }
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.detail ||
+                "Failed to load crop slots"
+            );
+
+        }
+
+
+        farmerSlots = data;
+
+
+        table.innerHTML = "";
+
+
+        if (
+            !Array.isArray(data) ||
+            data.length === 0
+        ) {
+
+            table.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="6"
+                        class="no-data">
+
+                        No crop slots created yet.
+
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+
+        }
+
+
+        data.forEach(
+            function(slot) {
+
+                const row =
+                    document.createElement(
+                        "tr"
+                    );
+
+
+                row.innerHTML = `
+
+                    <td>
+                        ${slot.crop_name || "-"}
+                    </td>
+
+                    <td>
+                        ${slot.id || "-"}
+                    </td>
+
+                    <td>
+                        ${slot.quantity || "-"}
+                        ${slot.quantity_unit || ""}
+                    </td>
+
+                    <td>
+                        ₹${slot.expected_price ?? "-"}
+                    </td>
+
+                    <td>
+                        ${slot.available_date || "-"}
+                    </td>
+
+                    <td>
+                        ${slot.status || "-"}
+                    </td>
+
+                `;
+
+
+                table.appendChild(row);
+
+            }
+        );
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "CROP SLOT ERROR:",
+            error
+        );
+
+
+        table.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="6"
+                    class="no-data">
+
+                    ${error.message}
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+}
+
+
+// =========================================================
+// LOAD WHOLESALER BIDS
+// =========================================================
+
+async function loadWholesalerBids() {
+
+    const table =
+        document.getElementById(
+            "wholesalerBidsTable"
+        );
+
+
+    table.innerHTML = `
+
+        <tr>
+
+            <td
+                colspan="9"
+                class="no-data">
+
+                Loading bids...
+
+            </td>
+
+        </tr>
+
+    `;
+
+
+    try {
+
+        // -------------------------------------------------
+        // GET FARMER CROP SLOTS
+        // -------------------------------------------------
+
+        const slotResponse =
+            await fetch(
+
+                API_URL +
+                "/api/farmers/" +
+                farmer.farmer_id +
+                "/crop-slots"
+
+            );
+
+
+        const slots =
+            await slotResponse.json();
+
+
+        if (!slotResponse.ok) {
+
+            throw new Error(
+                slots.detail ||
+                "Could not load crop slots."
+            );
+
+        }
+
+
+        farmerSlots = slots;
+
+
+        // -------------------------------------------------
+        // GET ALL BIDS
+        // -------------------------------------------------
+
+        const bidResponse =
+            await fetch(
+
+                API_URL +
+                "/api/bids"
+
+            );
+
+
+        const bids =
+            await bidResponse.json();
+
+
+        if (!bidResponse.ok) {
+
+            throw new Error(
+                bids.detail ||
+                "Could not load bids."
+            );
+
+        }
+
+
+        // -------------------------------------------------
+        // FARMER SLOT IDS
+        // -------------------------------------------------
+
+        const farmerSlotIds =
+            slots.map(
+                function(slot) {
+
+                    return Number(
+                        slot.id
+                    );
+
+                }
+            );
+
+
+        // -------------------------------------------------
+        // MATCH BID WITH FARMER SLOT
+        // -------------------------------------------------
+
+        const matchingBids =
+            bids.filter(
+                function(bid) {
+
+                    return farmerSlotIds.includes(
+
+                        Number(
+                            bid.crop_slot_id
+                        )
+
+                    );
+
+                }
+            );
+
+
+        table.innerHTML = "";
+
+
+        if (
+            matchingBids.length === 0
+        ) {
+
+            table.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="9"
+                        class="no-data">
+
+                        No bids received for your crop slots.
+
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+
+        }
+
+
+        // -------------------------------------------------
+        // DISPLAY BIDS
+        // -------------------------------------------------
+
+        matchingBids.forEach(
+            function(bid) {
+
+                const row =
+                    document.createElement(
+                        "tr"
+                    );
+
+
+                row.innerHTML = `
+
+                    <td>
+                        ${bid.crop_name || "-"}
+                    </td>
+
+                    <td>
+                        ${bid.id || "-"}
+                    </td>
+
+                    <td>
+                        ${bid.company_name || "-"}
+                    </td>
+
+                    <td>
+                        ${bid.company_location || "-"}
+                    </td>
+
+                    <td>
+                        ₹${bid.bid_price ?? "-"}
+                    </td>
+
+                    <td>
+                        ${bid.price_unit || "-"}
+                    </td>
+
+                    <td>
+                        ${bid.quantity || "-"}
+                        ${bid.quantity_unit || ""}
+                    </td>
+
+                    <td>
+                        ${bid.status || "-"}
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="bid-btn"
+                            onclick='respondToBid(
+                                ${JSON.stringify(bid)}
+                            )'>
+
+                            Respond
+
+                        </button>
+
+                    </td>
+
+                `;
+
+
+                table.appendChild(row);
+
+            }
+        );
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "BID ERROR:",
+            error
+        );
+
+
+        table.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="9"
+                    class="no-data">
+
+                    Cannot load bids:
+                    ${error.message}
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+}
+
+
+// =========================================================
+// OPEN RESPONSE FORM
+// =========================================================
+
+function respondToBid(
+    bid
+) {
+
+    selectedBid =
+        bid;
+
+
+    selectedBidId =
+        Number(
+            bid.id
+        );
+
+
+    selectedCropSlotId =
+        Number(
+            bid.crop_slot_id
+        );
+
+
+    const matchingSlot =
+        farmerSlots.find(
+            function(slot) {
+
+                return Number(
+                    slot.id
+                ) === selectedCropSlotId;
+
+            }
+        );
+
+
+    if (!matchingSlot) {
+
+        pageMessage.textContent =
+            "Farmer crop slot not found.";
+
+        pageMessage.style.color =
+            "#c62828";
+
+        return;
+
+    }
+
+
+    responseBidInfo.textContent =
+        "Bid #" +
+        selectedBidId +
+        " from " +
+        (bid.company_name || "Wholesaler") +
+        " for " +
+        (bid.crop_name || "crop");
+
+
+    // -------------------------------------------------
+    // PRE-FILL WHOLESALER BID PRICE
+    // -------------------------------------------------
+
+    document.getElementById(
+        "responsePrice"
+    ).value =
+        bid.bid_price || "";
+
+
+    // -------------------------------------------------
+    // PRE-FILL QUANTITY
+    // -------------------------------------------------
+
+    document.getElementById(
+        "responseQuantity"
+    ).value =
+        bid.quantity || matchingSlot.quantity || "";
+
+
+    responseBox.style.display =
+        "block";
+
+
+    pageMessage.textContent =
+        "";
+
+
+    responseBox.scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
+
+
+// =========================================================
+// CLOSE RESPONSE FORM
+// =========================================================
+
+function closeResponseBox() {
+
+    responseBox.style.display =
+        "none";
+
+
+    selectedBid =
+        null;
+
+
+    selectedBidId =
+        null;
+
+
+    selectedCropSlotId =
+        null;
+
+}
+
+
+// =========================================================
+// SUBMIT BID RESPONSE
+// =========================================================
+
+async function submitBidResponse() {
+
+    // -------------------------------------------------
+    // CHECK SELECTION
+    // -------------------------------------------------
+
+    if (
+        !selectedBidId ||
+        !selectedCropSlotId
+    ) {
+
+        pageMessage.textContent =
+            "Please select a bid first.";
+
+        pageMessage.style.color =
+            "#c62828";
+
+        return;
+
+    }
+
+
+    // -------------------------------------------------
+    // GET VALUES
+    // -------------------------------------------------
+
+    const offeredPrice =
+        Number(
+            document.getElementById(
+                "responsePrice"
+            ).value
+        );
+
+
+    const quantity =
+        Number(
+            document.getElementById(
+                "responseQuantity"
+            ).value
+        );
+
+
+    // -------------------------------------------------
+    // VALIDATION
+    // -------------------------------------------------
+
+    if (
+        !offeredPrice ||
+        offeredPrice <= 0
+    ) {
+
+        pageMessage.textContent =
+            "Please enter a valid offered price.";
+
+        pageMessage.style.color =
+            "#c62828";
+
+        return;
+
+    }
+
+
+    if (
+        !quantity ||
+        quantity <= 0
+    ) {
+
+        pageMessage.textContent =
+            "Please enter a valid quantity.";
+
+        pageMessage.style.color =
+            "#c62828";
+
+        return;
+
+    }
+
+
+    // -------------------------------------------------
+    // FIND FARMER
+    // -------------------------------------------------
+
+    if (!farmer ||
+        !farmer.farmer_id) {
+
+        alert(
+            "Farmer login information is missing."
+        );
+
+        return;
+
+    }
+
+
+    // -------------------------------------------------
+    // GET FARMER NAME
+    // -------------------------------------------------
+
+    const farmerName =
+        farmer.name || "";
+
+
+    // -------------------------------------------------
+    // CREATE RESPONSE DATA
+    // -------------------------------------------------
+
+    const responseData = {
+
+        bid_id:
+            selectedBidId,
+
+        farmer_id:
+            Number(
+                farmer.farmer_id
+            ),
+
+        farmer_name:
+            farmerName,
+
+        crop_slot_id:
+            selectedCropSlotId,
+
+        offered_price:
+            offeredPrice,
+
+        quantity:
+            quantity
+
+    };
+
+
+    console.log(
+        "Sending bid response:",
+        responseData
+    );
+
+
+    // -------------------------------------------------
+    // SEND TO BACKEND
+    // -------------------------------------------------
+
+    try {
+
+        const response =
+            await fetch(
+
+                API_URL +
+                "/api/bid-responses/create",
+
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body:
+                        JSON.stringify(
+                            responseData
+                        )
+
+                }
+
+            );
+
+
+        const responseText =
+            await response.text();
+
+
+        console.log(
+            "Response status:",
+            response.status
+        );
+
+
+        console.log(
+            "Backend response:",
+            responseText
+        );
+
+
+        let data;
+
+
+        try {
+
+            data =
+                JSON.parse(
+                    responseText
+                );
+
+        }
+
+        catch(error) {
+
+            data = {
+
+                raw_response:
+                    responseText
+
+            };
+
+        }
+
+
+        // -------------------------------------------------
+        // SUCCESS
+        // -------------------------------------------------
+
+        if (response.ok) {
+
+            pageMessage.textContent =
+                "Response submitted successfully! Response ID: " +
+                data.response_id;
+
+            pageMessage.style.color =
+                "#087532";
+
+
+            alert(
+                "Bid response submitted successfully!\n\n" +
+                "Response ID: " +
+                data.response_id
+            );
+
+
+            closeResponseBox();
+
+
+            // Reload bids
+
+            loadWholesalerBids();
+
+
+            return;
+
+        }
+
+
+        // -------------------------------------------------
+        // BACKEND ERROR
+        // -------------------------------------------------
+
+        let errorMessage =
+            "Failed to submit response.";
+
+
+        if (data.detail) {
+
+            if (
+                typeof data.detail ===
+                "string"
+            ) {
+
+                errorMessage =
+                    data.detail;
+
+            }
+
+            else {
+
+                errorMessage =
+                    JSON.stringify(
+                        data.detail
+                    );
+
+            }
+
+        }
+
+        else if (
+            data.raw_response
+        ) {
+
+            errorMessage =
+                data.raw_response;
+
+        }
+
+
+        pageMessage.textContent =
+            "Backend Error: " +
+            errorMessage;
+
+        pageMessage.style.color =
+            "#c62828";
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "RESPONSE ERROR:",
+            error
+        );
+
+
+        pageMessage.textContent =
+            "Connection failed: " +
+            error.message;
+
+        pageMessage.style.color =
+            "#c62828";
+
+    }
+
+}
+
+
+// =========================================================
+// START
+// =========================================================
+
+if (farmer) {
+
+    loadMyCreatedSlots();
+
+}
+
+
+</script>
+
+</body>
+
+</html>

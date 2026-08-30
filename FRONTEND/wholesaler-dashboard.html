@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Wholesaler Dashboard | Krishi Connect</title>
+
+<link rel="stylesheet"
+      href="wholesaler-dashboard.css">
+
+
+</head>
+
+<body>
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="header">
+
+
+<div>
+
+    <h1>
+        Wholesaler Dashboard
+    </h1>
+
+    <p>
+        Manage your agricultural buying activities
+    </p>
+
+</div>
+
+
+<!-- PROFILE BUTTON -->
+
+<button
+    class="profile-btn"
+    type="button"
+    onclick="openWholesalerProfile()">
+
+    👤 Profile
+
+</button>
+
+
+</header>
+
+<!-- =========================================================
+     DASHBOARD
+========================================================= -->
+
+<main class="dashboard">
+
+
+<!-- TWO MAIN HORIZONTAL CARDS -->
+
+<section class="main-cards">
+
+
+    <!-- CREATE BID -->
+
+    <a href="create-bid.html"
+       class="card horizontal-card">
+
+        <div class="card-icon">
+            +
+        </div>
+
+        <div>
+
+            <h2>
+                Create Bid
+            </h2>
+
+            <p>
+                Create a new bid for farmers
+            </p>
+
+            <span>
+                Create Bid →
+            </span>
+
+        </div>
+
+    </a>
+
+
+
+    <!-- VIEW BIDS -->
+
+    <a href="view-bids.html"
+       class="card horizontal-card">
+
+        <div class="card-icon">
+            ☷
+        </div>
+
+        <div>
+
+            <h2>
+                View Bids
+            </h2>
+
+            <p>
+                View available bids from farmers
+            </p>
+
+            <span>
+                View Bids →
+            </span>
+
+        </div>
+
+    </a>
+
+
+</section>
+
+
+
+<!-- TWO VERTICAL CARDS -->
+
+<section class="small-cards">
+
+
+    <!-- QR -->
+
+    <a href="#"
+       class="card vertical-card">
+
+        <div class="small-icon">
+            ▣
+        </div>
+
+        <h2>
+            Show QR
+        </h2>
+
+        <p>
+            View your company QR code
+        </p>
+
+        <span>
+            Show QR →
+        </span>
+
+    </a>
+
+
+
+    <!-- MARKET PRICE -->
+
+    <a href="market-prices.html"
+   class="card vertical-card"
+   onclick="localStorage.setItem('marketPriceFrom', 'wholesaler');">
+
+    <div class="small-icon">
+        ₹
+    </div>
+
+    <h2>
+        Market Prices
+    </h2>
+
+    <p>
+        Check current agricultural market prices
+    </p>
+
+    <span>
+        View Prices →
+    </span>
+
+</a>
+
+
+</section>
+
+
+</main>
+
+<!-- =========================================================
+     WHOLESALER PROFILE POPUP
+========================================================= -->
+
+<div id="wholesalerProfilePopup"
+     class="profile-popup">
+
+```
+<div class="profile-card">
+
+
+    <!-- CLOSE -->
+
+    <button
+        class="profile-close"
+        type="button"
+        onclick="closeWholesalerProfile()">
+
+        ×
+
+    </button>
+
+
+
+    <!-- PROFILE ICON -->
+
+    <div class="profile-avatar">
+
+        👤
+
+    </div>
+
+
+
+    <h2>
+        Wholesaler Profile
+    </h2>
+
+
+
+    <!-- PROFILE DATA -->
+
+    <div class="profile-info">
+
+
+        <div class="profile-row">
+
+            <strong>
+                Company Name
+            </strong>
+
+            <span id="profileCompanyName">
+                -
+            </span>
+
+        </div>
+
+
+
+        <div class="profile-row">
+
+            <strong>
+                Wholesaler ID
+            </strong>
+
+            <span id="profileWholesalerId">
+                -
+            </span>
+
+        </div>
+
+
+
+        <div class="profile-row">
+
+            <strong>
+                Email
+            </strong>
+
+            <span id="profileEmail">
+                -
+            </span>
+
+        </div>
+
+
+
+        <div class="profile-row">
+
+            <strong>
+                Company Location
+            </strong>
+
+            <span id="profileCompanyLocation">
+                -
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- LOGOUT -->
+
+    <button
+        class="profile-logout"
+        type="button"
+        onclick="logoutWholesaler()">
+
+        🚪 Logout
+
+    </button>
+
+
+</div>
+```
+
+</div>
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+
+// =========================================================
+// GET WHOLESALER DATA
+// =========================================================
+
+function getWholesalerData() {
+
+    const storedData =
+        localStorage.getItem("wholesalerData");
+
+
+    console.log(
+        "Stored wholesalerData:",
+        storedData
+    );
+
+
+    if (!storedData) {
+
+        return null;
+
+    }
+
+
+    try {
+
+        return JSON.parse(storedData);
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "Wholesaler data JSON error:",
+            error
+        );
+
+        return null;
+
+    }
+
+}
+
+
+
+// =========================================================
+// OPEN WHOLESALER PROFILE
+// =========================================================
+
+function openWholesalerProfile() {
+
+
+    const popup =
+        document.getElementById(
+            "wholesalerProfilePopup"
+        );
+
+
+    if (!popup) {
+
+        return;
+
+    }
+
+
+    const wholesaler =
+        getWholesalerData();
+
+
+    if (!wholesaler) {
+
+        alert(
+            "Wholesaler data not found. Please login again."
+        );
+
+        return;
+
+    }
+
+
+
+    // COMPANY NAME
+
+    document.getElementById(
+        "profileCompanyName"
+    ).textContent =
+        wholesaler.company_name || "-";
+
+
+
+    // WHOLESALER ID
+
+    document.getElementById(
+        "profileWholesalerId"
+    ).textContent =
+        wholesaler.wholesaler_id || "-";
+
+
+
+    // EMAIL
+
+    document.getElementById(
+        "profileEmail"
+    ).textContent =
+        wholesaler.email || "-";
+
+
+
+    // LOCATION
+
+    document.getElementById(
+        "profileCompanyLocation"
+    ).textContent =
+        wholesaler.company_location || "-";
+
+
+
+    // SHOW POPUP
+
+    popup.classList.add("show");
+
+}
+
+
+
+// =========================================================
+// CLOSE PROFILE
+// =========================================================
+
+function closeWholesalerProfile() {
+
+    const popup =
+        document.getElementById(
+            "wholesalerProfilePopup"
+        );
+
+
+    if (popup) {
+
+        popup.classList.remove("show");
+
+    }
+
+}
+
+
+
+// =========================================================
+// CLOSE WHEN CLICKING OUTSIDE
+// =========================================================
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+
+        const popup =
+            document.getElementById(
+                "wholesalerProfilePopup"
+            );
+
+
+        const card =
+            document.querySelector(
+                ".profile-card"
+            );
+
+
+        const profileButton =
+            document.querySelector(
+                ".profile-btn"
+            );
+
+
+        if (
+
+            popup &&
+
+            popup.classList.contains("show") &&
+
+            card &&
+
+            !card.contains(event.target) &&
+
+            profileButton &&
+
+            !profileButton.contains(event.target)
+
+        ) {
+
+            closeWholesalerProfile();
+
+        }
+
+    }
+);
+
+
+
+// =========================================================
+// LOGOUT
+// =========================================================
+
+function logoutWholesaler() {
+
+
+    // Remove complete wholesaler data
+
+    localStorage.removeItem(
+        "wholesalerData"
+    );
+
+
+    // Remove individual values if they exist
+
+    localStorage.removeItem(
+        "wholesalerId"
+    );
+
+
+    localStorage.removeItem(
+        "wholesalerName"
+    );
+
+
+    localStorage.removeItem(
+        "wholesalerEmail"
+    );
+
+
+    localStorage.removeItem(
+        "companyLocation"
+    );
+
+
+    // GO TO MAIN HOME PAGE
+
+    window.location.href =
+        "index.html";
+
+}
+
+
+</script>
+
+</body>
+
+</html>

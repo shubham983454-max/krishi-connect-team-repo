@@ -1,0 +1,129 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f7f4;
+    color: #333;
+}
+
+.page-container {
+    width: 100%;
+    padding: 35px 20px;
+}
+
+.summary-box {
+    max-width: 950px;
+    margin: auto;
+    background: white;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.page-header h1 {
+    color: #267a35;
+    margin-bottom: 8px;
+}
+
+.page-header p {
+    color: #777;
+}
+
+.card {
+    background: #fafafa;
+    border: 1px solid #e3e3e3;
+    border-radius: 12px;
+    padding: 22px;
+    margin-bottom: 22px;
+}
+
+.card h2 {
+    color: #267a35;
+    font-size: 20px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e5e5e5;
+    padding-bottom: 10px;
+}
+
+.details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.details div {
+    background: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 14px;
+}
+
+.details div.full {
+    grid-column: 1 / -1;
+}
+
+.details span {
+    display: block;
+    color: #777;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.details strong {
+    color: #222;
+    font-size: 15px;
+    word-break: break-word;
+}
+
+.success-message {
+    text-align: center;
+    background: #edf8ef;
+    color: #267a35;
+    padding: 14px;
+    border-radius: 8px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.dashboard-button {
+    display: block;
+    width: 220px;
+    margin: 25px auto 0;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    background: #267a35;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.dashboard-button:hover {
+    background: #1d6029;
+}
+
+@media (max-width: 700px) {
+
+    .summary-box {
+        padding: 22px;
+    }
+
+    .details {
+        grid-template-columns: 1fr;
+    }
+
+    .details div.full {
+        grid-column: auto;
+    }
+
+}

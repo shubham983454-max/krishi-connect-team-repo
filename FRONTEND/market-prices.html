@@ -1,0 +1,805 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Krishi Connect - Market Prices</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+ <link rel="stylesheet"
+          href="market-prices.css">
+   
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     TOPBAR
+========================================================= -->
+
+<header class="topbar">
+
+    <div class="topbar-left">
+
+        <button
+            class="back-btn"
+            onclick="goBack()"
+            title="Back">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+        </button>
+
+
+        <h2>
+            Market Prices
+        </h2>
+
+    </div>
+
+
+    <button
+        class="profile-icon"
+        function openProfile() {
+
+    window.location.href =
+        "customer-dashboard.html";
+
+}
+        title="Profile">
+
+        <i class="fa-solid fa-user"></i>
+
+    </button>
+
+</header>
+
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="container">
+
+
+    <!-- PAGE HEADER -->
+
+    <div class="page-header">
+
+        <h1>
+            Current Market Prices
+        </h1>
+
+        <p>
+            Check the latest available market prices
+            before selling your crops.
+        </p>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         SEARCH
+    ====================================================== -->
+
+    <section class="search-section">
+
+        <div class="search-title">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            Search Market Prices
+
+        </div>
+
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search crop, market or location...">
+
+
+            <button
+                class="search-btn"
+                onclick="searchPrices()">
+
+                <i class="fa-solid fa-search"></i>
+
+                Search
+
+            </button>
+
+
+            <button
+                class="clear-btn"
+                onclick="clearSearch()">
+
+                Clear
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         STATUS
+    ====================================================== -->
+
+    <div
+        id="status"
+        class="status">
+
+    </div>
+
+
+
+    <!-- =====================================================
+         RESULT INFO
+    ====================================================== -->
+
+    <div class="result-info">
+
+        <h2>
+            Available Prices
+        </h2>
+
+
+        <span id="priceCount">
+            Loading...
+        </span>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         PRICE GRID
+    ====================================================== -->
+
+    <div
+        id="priceGrid"
+        class="price-grid">
+
+    </div>
+
+
+
+    <!-- =====================================================
+         NO DATA
+    ====================================================== -->
+
+    <div
+        id="noData"
+        class="no-data">
+
+        <i class="fa-solid fa-chart-line"></i>
+
+        <h3>
+            No Market Prices Found
+        </h3>
+
+        <p>
+            Try searching with another crop,
+            market or location.
+        </p>
+
+    </div>
+
+
+
+    <!-- FOOTER -->
+
+    <div class="footer">
+
+        © 2026 Krishi Connect
+
+    </div>
+
+</main>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+
+// =========================================================
+// BACK TO DASHBOARD
+// =========================================================
+function goBack() {
+
+    const from =
+        localStorage.getItem("marketPriceFrom");
+
+
+    if (from === "customer") {
+
+        window.location.href =
+            "customer-dashboard.html";
+
+    }
+
+    else if (from === "wholesaler") {
+
+        window.location.href =
+            "wholesaler-dashboard.html";
+
+    }
+
+    else if (from === "farmer") {
+
+        window.location.href =
+            "farmer-dashboard.html";
+
+    }
+
+    else {
+
+        // Safe fallback
+        window.location.href =
+            "index.html";
+
+    }
+
+}
+
+
+
+// =========================================================
+// OPEN PROFILE
+// =========================================================
+
+function openProfile() {
+
+    const from =
+        localStorage.getItem("marketPriceFrom");
+
+
+    if (from === "customer") {
+
+        window.location.href =
+            "customer-dashboard.html";
+
+    }
+
+    else if (from === "wholesaler") {
+
+        window.location.href =
+            "wholesaler-dashboard.html";
+
+    }
+
+    else if (from === "farmer") {
+
+        window.location.href =
+            "farmer-dashboard.html";
+
+    }
+
+    else {
+
+        window.location.href =
+            "index.html";
+
+    }
+
+}
+
+
+
+// =========================================================
+// GLOBAL MARKET DATA
+// =========================================================
+
+let allMarketPrices = [];
+
+
+
+// =========================================================
+// LOAD MARKET PRICES
+// =========================================================
+
+async function loadMarketPrices() {
+
+    const status =
+        document.getElementById("status");
+
+
+    const priceCount =
+        document.getElementById("priceCount");
+
+
+    status.className =
+        "status show loading";
+
+
+    status.textContent =
+        "Loading market prices...";
+
+
+    try {
+
+        const response = await fetch(
+            "http://127.0.0.1:8000/api/market-prices"
+        );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Market price response:",
+            data
+        );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.detail ||
+                "Failed to load market prices"
+            );
+
+        }
+
+
+        // Save all data
+
+        allMarketPrices = data;
+
+
+        // Display data
+
+        displayMarketPrices(
+            allMarketPrices
+        );
+
+
+        status.className =
+            "status";
+
+
+    }
+
+
+    catch(error) {
+
+        console.error(
+            "Market price error:",
+            error
+        );
+
+
+        status.className =
+            "status show error";
+
+
+        status.textContent =
+            "Cannot connect to backend. Please make sure FastAPI is running.";
+
+
+        priceCount.textContent =
+            "Connection error";
+
+    }
+
+}
+
+
+
+// =========================================================
+// DISPLAY MARKET PRICES
+// =========================================================
+
+function displayMarketPrices(prices) {
+
+    const grid =
+        document.getElementById("priceGrid");
+
+
+    const noData =
+        document.getElementById("noData");
+
+
+    const priceCount =
+        document.getElementById("priceCount");
+
+
+    grid.innerHTML = "";
+
+
+    priceCount.textContent =
+        prices.length +
+        (prices.length === 1
+            ? " price found"
+            : " prices found");
+
+
+    if (prices.length === 0) {
+
+        noData.classList.add("show");
+
+        return;
+
+    }
+
+
+    noData.classList.remove("show");
+
+
+    prices.forEach(function(item) {
+
+        const card =
+            document.createElement("div");
+
+
+        card.className =
+            "price-card";
+
+
+        // Crop name
+
+        const cropName =
+            item.crop_name || "-";
+
+
+        // Market
+
+        const marketName =
+            item.market_name || "-";
+
+
+        // Location
+
+        const location =
+            item.location || "-";
+
+
+        // Price
+
+        const price =
+            item.price !== null &&
+            item.price !== undefined
+                ? Number(item.price).toLocaleString("en-IN")
+                : "-";
+
+
+        // Unit
+
+        const unit =
+            item.price_unit || "-";
+
+
+        // Date
+
+        const date =
+            formatDate(item.date);
+
+
+        card.innerHTML = `
+
+            <div class="crop-header">
+
+                <div class="crop-icon">
+
+                    <i class="fa-solid fa-seedling"></i>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        ${escapeHTML(cropName)}
+                    </h3>
+
+                    <span>
+                        Market Price
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="price">
+
+                <div class="price-label">
+                    Market Price
+                </div>
+
+
+                <div class="price-value">
+
+                    ₹${price}
+
+                    <small style="
+                        font-size: 12px;
+                        font-weight: 500;
+                        color: #68736c;
+                    ">
+
+                        / ${escapeHTML(unit)}
+
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="details">
+
+                <div class="detail-row">
+
+                    <strong>
+                        Market
+                    </strong>
+
+                    <span>
+                        ${escapeHTML(marketName)}
+                    </span>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <strong>
+                        Location
+                    </strong>
+
+                    <span>
+                        ${escapeHTML(location)}
+                    </span>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <strong>
+                        Date
+                    </strong>
+
+                    <span>
+                        ${escapeHTML(date)}
+                    </span>
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        grid.appendChild(card);
+
+    });
+
+}
+
+
+
+// =========================================================
+// SEARCH PRICES
+// =========================================================
+
+function searchPrices() {
+
+    const input =
+        document.getElementById("searchInput");
+
+
+    const searchText =
+        input.value
+            .trim()
+            .toLowerCase();
+
+
+    if (searchText === "") {
+
+        displayMarketPrices(
+            allMarketPrices
+        );
+
+        return;
+
+    }
+
+
+    const filtered =
+        allMarketPrices.filter(function(item) {
+
+            const crop =
+                String(
+                    item.crop_name || ""
+                ).toLowerCase();
+
+
+            const market =
+                String(
+                    item.market_name || ""
+                ).toLowerCase();
+
+
+            const location =
+                String(
+                    item.location || ""
+                ).toLowerCase();
+
+
+            return (
+
+                crop.includes(searchText) ||
+
+                market.includes(searchText) ||
+
+                location.includes(searchText)
+
+            );
+
+        });
+
+
+    displayMarketPrices(filtered);
+
+}
+
+
+
+// =========================================================
+// SEARCH WHEN PRESSING ENTER
+// =========================================================
+
+document
+    .getElementById("searchInput")
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Enter") {
+
+                searchPrices();
+
+            }
+
+        }
+    );
+
+
+
+// =========================================================
+// CLEAR SEARCH
+// =========================================================
+
+function clearSearch() {
+
+    document.getElementById(
+        "searchInput"
+    ).value = "";
+
+
+    displayMarketPrices(
+        allMarketPrices
+    );
+
+}
+
+
+
+// =========================================================
+// FORMAT DATE
+// =========================================================
+
+function formatDate(dateValue) {
+
+    if (!dateValue) {
+
+        return "-";
+
+    }
+
+
+    try {
+
+        const date =
+            new Date(dateValue);
+
+
+        if (isNaN(date.getTime())) {
+
+            return dateValue;
+
+        }
+
+
+        return date.toLocaleDateString(
+            "en-IN",
+            {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            }
+        );
+
+    }
+
+    catch(error) {
+
+        return dateValue;
+
+    }
+
+}
+
+
+
+// =========================================================
+// SECURITY
+// Prevent HTML injection from database values
+// =========================================================
+
+function escapeHTML(value) {
+
+    const div =
+        document.createElement("div");
+
+
+    div.textContent =
+        String(value);
+
+
+    return div.innerHTML;
+
+}
+
+
+
+// =========================================================
+// LOAD PAGE
+// =========================================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        console.log(
+            "Market Prices page loaded"
+        );
+
+
+        loadMarketPrices();
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>
+

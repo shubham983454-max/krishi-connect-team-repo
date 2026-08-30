@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Krishi Connect - Customer Login</title>
+
+<link rel="stylesheet" href="customer-login.css">
+
+
+</head>
+
+<body>
+
+<div class="login-container">
+
+
+<div class="logo">
+    🌿 Krishi Connect
+</div>
+
+
+<div class="subtitle">
+    Connecting Customers with Farmers
+</div>
+
+
+<h2>
+    Customer Login
+</h2>
+
+
+<form
+    id="loginForm"
+>
+
+
+    <div class="input-box">
+
+        <label for="phone">
+            Mobile Number
+        </label>
+
+        <input
+            type="tel"
+            id="phone"
+            placeholder="Enter mobile number"
+            required
+        >
+
+    </div>
+
+
+    <div class="input-box">
+
+        <label for="password">
+            Password
+        </label>
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Enter password"
+            required
+        >
+
+    </div>
+
+
+    <button
+        type="submit"
+        class="login-btn"
+    >
+
+        Login
+
+    </button>
+
+
+</form>
+
+
+<p id="message"></p>
+
+
+<div class="register-text">
+
+    New Customer?
+
+    <a
+        href="customer-register.html"
+        class="register-link"
+    >
+
+        Register Here
+
+    </a>
+
+</div>
+
+
+<a
+    href="index.html"
+    class="back-btn"
+>
+
+    ← Back to Main Dashboard
+
+</a>
+
+
+</div>
+
+<script>
+
+
+// =========================================================
+// CUSTOMER LOGIN
+// =========================================================
+
+const loginForm =
+    document.getElementById("loginForm");
+
+
+const message =
+    document.getElementById("message");
+
+
+loginForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        // -------------------------------------------------
+        // GET FORM VALUES
+        // -------------------------------------------------
+
+        const mobile =
+            document.getElementById("phone")
+                .value.trim();
+
+
+        const password =
+            document.getElementById("password")
+                .value;
+
+
+        // -------------------------------------------------
+        // SHOW LOGIN STATUS
+        // -------------------------------------------------
+
+        message.textContent =
+            "Logging in...";
+
+        message.style.color =
+            "#267a35";
+
+
+        try {
+
+
+            // -------------------------------------------------
+            // CALL FASTAPI
+            // -------------------------------------------------
+
+            const response =
+                await fetch(
+                    "http://127.0.0.1:8000/api/customers/login",
+                    {
+
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json"
+
+                        },
+
+                        body: JSON.stringify({
+
+                            mobile: mobile,
+
+                            password: password
+
+                        })
+
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            console.log(
+                "Customer login response:",
+                data
+            );
+
+
+            console.log(
+                "Status:",
+                response.status
+            );
+
+
+            // -------------------------------------------------
+            // LOGIN FAILED
+            // -------------------------------------------------
+
+            if (!response.ok) {
+
+                message.textContent =
+                    data.detail ||
+                    "Invalid mobile number or password.";
+
+                message.style.color =
+                    "#c62828";
+
+                return;
+
+            }
+
+
+            // -------------------------------------------------
+            // CREATE CUSTOMER OBJECT
+            // -------------------------------------------------
+
+            const customerData = {
+
+                customer_id:
+                    data.customer_id,
+
+                name:
+                    data.name,
+
+                mobile:
+                    data.mobile,
+
+                location:
+                    data.location
+
+            };
+
+
+            console.log(
+                "Customer data to save:",
+                customerData
+            );
+
+
+            // -------------------------------------------------
+            // SAVE COMPLETE CUSTOMER DATA
+            // -------------------------------------------------
+
+            localStorage.setItem(
+                "customerData",
+                JSON.stringify(customerData)
+            );
+
+
+            // -------------------------------------------------
+            // SAVE INDIVIDUAL VALUES
+            // -------------------------------------------------
+
+            localStorage.setItem(
+                "customerId",
+                String(data.customer_id)
+            );
+
+
+            localStorage.setItem(
+                "customerName",
+                data.name || ""
+            );
+
+
+            localStorage.setItem(
+                "customerMobile",
+                data.mobile || ""
+            );
+
+
+            localStorage.setItem(
+                "customerLocation",
+                data.location || ""
+            );
+
+
+            // -------------------------------------------------
+            // VERIFY STORAGE
+            // -------------------------------------------------
+
+            console.log(
+                "Saved customerData:",
+                localStorage.getItem(
+                    "customerData"
+                )
+            );
+
+
+            // -------------------------------------------------
+            // SUCCESS MESSAGE
+            // -------------------------------------------------
+
+            message.textContent =
+                "Login successful!";
+
+            message.style.color =
+                "#267a35";
+
+
+            // -------------------------------------------------
+            // REDIRECT TO CUSTOMER DASHBOARD
+            // -------------------------------------------------
+
+            setTimeout(function() {
+
+                window.location.href =
+                    "customer-dashboard.html";
+
+            }, 500);
+
+
+        }
+
+
+        catch(error) {
+
+
+            console.error(
+                "Customer login error:",
+                error
+            );
+
+
+            message.textContent =
+                "Cannot connect to backend. Please make sure FastAPI is running.";
+
+            message.style.color =
+                "#c62828";
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>

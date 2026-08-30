@@ -1,0 +1,550 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  }
+
+body {
+font-family: Arial, Helvetica, sans-serif;
+background: #f7faf8;
+color: #1e2e23;
+min-height: 100vh;
+}
+
+/* =========================
+HEADER
+========================= */
+
+.header {
+height: 76px;
+background: white;
+border-bottom: 1px solid #e1e8e3;
+
+
+display: flex;
+align-items: center;
+justify-content: space-between;
+
+padding: 0 42px;
+
+position: sticky;
+top: 0;
+z-index: 100;
+
+
+}
+
+.header-left {
+display: flex;
+align-items: center;
+gap: 14px;
+}
+
+.back-btn {
+width: 40px;
+height: 40px;
+
+
+border: none;
+border-radius: 9px;
+
+background: #e8f5eb;
+color: #087532;
+
+font-size: 18px;
+cursor: pointer;
+
+transition: 0.2s;
+
+
+}
+
+.back-btn:hover {
+background: #087532;
+color: white;
+}
+
+.header h1 {
+color: #174d2c;
+font-size: 22px;
+}
+
+/* =========================
+MAIN CONTAINER
+========================= */
+
+.container {
+width: 100%;
+max-width: 1400px;
+
+
+margin: auto;
+
+padding: 35px 42px;
+
+
+}
+
+/* =========================
+PAGE TITLE
+========================= */
+
+.page-title {
+margin-bottom: 25px;
+}
+
+.page-title span {
+color: #087532;
+font-size: 12px;
+font-weight: bold;
+letter-spacing: 1px;
+}
+
+.page-title h2 {
+color: #173e26;
+font-size: 30px;
+margin-top: 7px;
+margin-bottom: 8px;
+}
+
+.page-title p {
+color: #707a73;
+font-size: 14px;
+}
+
+/* =========================
+STATUS
+========================= */
+
+.status {
+display: none;
+
+
+padding: 14px 17px;
+
+border-radius: 9px;
+
+margin-bottom: 20px;
+
+font-size: 14px;
+
+
+}
+
+.status.show {
+display: block;
+}
+
+.status.loading {
+background: #eef7f0;
+color: #087532;
+}
+
+.status.error {
+background: #fff0ef;
+color: #b42318;
+}
+
+/* =========================
+RESULT INFO
+========================= */
+
+.result-info {
+display: flex;
+
+
+justify-content: space-between;
+align-items: center;
+
+margin-bottom: 16px;
+
+
+}
+
+.result-info h3 {
+color: #174d2c;
+font-size: 19px;
+}
+
+#slotCount {
+color: #707a73;
+font-size: 13px;
+}
+
+/* =========================
+FARMER GRID
+========================= */
+
+.farmer-grid {
+display: grid;
+
+
+grid-template-columns:
+    repeat(3, 1fr);
+
+gap: 18px;
+
+
+}
+
+/* =========================
+FARMER CARD
+========================= */
+
+.farmer-card {
+background: white;
+
+
+border: 1px solid #e0e8e2;
+
+border-radius: 14px;
+
+padding: 22px;
+
+box-shadow:
+    0 4px 16px rgba(20, 70, 35, 0.05);
+
+transition: 0.25s;
+
+
+}
+
+.farmer-card:hover {
+transform: translateY(-4px);
+
+
+box-shadow:
+    0 10px 25px rgba(20, 70, 35, 0.10);
+
+
+}
+
+/* =========================
+FARMER HEADER
+========================= */
+
+.farmer-header {
+display: flex;
+
+
+align-items: center;
+
+gap: 12px;
+
+margin-bottom: 18px;
+
+
+}
+
+.farmer-icon {
+width: 48px;
+height: 48px;
+
+
+border-radius: 11px;
+
+background: #e6f6e9;
+
+display: flex;
+
+align-items: center;
+justify-content: center;
+
+font-size: 22px;
+
+flex-shrink: 0;
+
+
+}
+
+.farmer-header h3 {
+color: #193d27;
+
+
+font-size: 18px;
+
+line-height: 1.3;
+
+
+}
+
+.farmer-header span {
+display: block;
+
+
+color: #7a827d;
+
+font-size: 12px;
+
+margin-top: 3px;
+
+
+}
+
+/* =========================
+CROP SECTION
+========================= */
+
+.crop-section {
+background: #f5faf6;
+
+
+border-radius: 10px;
+
+padding: 15px;
+
+margin-bottom: 15px;
+
+
+}
+
+.crop-label {
+color: #707a73;
+
+
+font-size: 12px;
+
+margin-bottom: 5px;
+
+
+}
+
+.crop-name {
+color: #087532;
+
+
+font-size: 21px;
+
+font-weight: 700;
+
+}
+
+/* =========================
+DETAILS
+========================= */
+
+.details {
+display: flex;
+
+
+flex-direction: column;
+
+gap: 9px;
+
+
+}
+
+.detail-row {
+display: flex;
+
+
+justify-content: space-between;
+
+gap: 15px;
+
+font-size: 13px;
+
+
+}
+
+.detail-row strong {
+color: #69736d;
+
+
+font-weight: 500;
+
+
+}
+
+.detail-row span {
+color: #193d27;
+
+font-weight: 600;
+
+text-align: right;
+
+word-break: break-word;
+
+
+}
+
+/* =========================
+EXPECTED PRICE
+========================= */
+
+.expected-price {
+margin-top: 17px;
+
+
+padding-top: 15px;
+
+border-top: 1px solid #e1e8e3;
+
+
+}
+
+.expected-price-label {
+color: #707a73;
+
+
+font-size: 12px;
+
+margin-bottom: 4px;
+
+
+}
+
+.expected-price-value {
+color: #087532;
+
+
+font-size: 23px;
+
+font-weight: 700;
+
+
+}
+
+/* =========================
+NO DATA
+========================= */
+
+.no-data {
+background: white;
+
+
+border: 1px solid #e0e8e2;
+
+border-radius: 14px;
+
+padding: 55px 20px;
+
+text-align: center;
+
+display: none;
+
+
+}
+
+.no-data.show {
+display: block;
+}
+
+.no-data .icon {
+font-size: 42px;
+
+
+margin-bottom: 15px;
+
+
+}
+
+.no-data h3 {
+color: #42604c;
+
+
+margin-bottom: 7px;
+
+
+}
+
+.no-data p {
+color: #7a827d;
+
+
+font-size: 13px;
+
+
+}
+
+/* =========================
+FOOTER
+========================= */
+
+.footer {
+margin-top: 40px;
+
+
+padding-top: 20px;
+
+border-top: 1px solid #e1e8e3;
+
+text-align: center;
+
+color: #7a827d;
+
+font-size: 12px;
+
+
+}
+
+/* =========================
+TABLET
+========================= */
+
+@media (max-width: 1000px) {
+
+
+.farmer-grid {
+    grid-template-columns:
+        repeat(2, 1fr);
+}
+
+
+}
+
+/* =========================
+MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+
+.header {
+    padding: 0 20px;
+}
+
+.header h1 {
+    font-size: 19px;
+}
+
+.container {
+    padding: 25px 20px;
+}
+
+.page-title h2 {
+    font-size: 25px;
+}
+
+.farmer-grid {
+    grid-template-columns: 1fr;
+}
+
+
+}
+
+/* =========================
+SMALL MOBILE
+========================= */
+
+@media (max-width: 450px) {
+
+
+.container {
+    padding: 20px 15px;
+}
+
+.header {
+    height: 65px;
+}
+
+.header h1 {
+    font-size: 17px;
+}
+
+.page-title h2 {
+    font-size: 23px;
+}
+
+
+}

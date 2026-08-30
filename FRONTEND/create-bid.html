@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Create Bid</title>
+
+    <link rel="stylesheet"
+          href="create-bid.css">
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <a href="wholesaler-dashboard.html"
+       class="back-btn">
+
+        ← Dashboard
+
+    </a>
+
+    <h1>Create New Bid</h1>
+
+</header>
+
+
+<main class="container">
+
+    <div class="form-card">
+
+        <h2>Bid Information</h2>
+
+        <p class="subtitle">
+            Enter the crop requirements you want to purchase from farmers.
+        </p>
+
+
+        <form id="createBidForm">
+
+
+            <!-- ================================================= -->
+            <!-- FARMER CROP SLOT -->
+            <!-- ================================================= -->
+
+            <div class="form-group full-width">
+
+                <label for="cropSlot">
+
+                    Select Farmer Crop Slot
+
+                </label>
+
+                <select id="cropSlot"
+                        required>
+
+                    <option value="">
+
+                        Loading crop slots...
+
+                    </option>
+
+                </select>
+
+                <small>
+                    Select the farmer crop slot for which you want
+                    to create the bid.
+                </small>
+
+            </div>
+
+
+            <div class="form-grid">
+
+
+                <!-- ================================================= -->
+                <!-- COMPANY -->
+                <!-- ================================================= -->
+
+                <div class="form-group">
+
+                    <label for="companyName">
+                        Company Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="companyName"
+                        placeholder="Company name"
+                        required
+                        readonly>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="companyLocation">
+                        Company Location
+                    </label>
+
+                    <input
+                        type="text"
+                        id="companyLocation"
+                        placeholder="Company location"
+                        required
+                        readonly>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- CROP -->
+                <!-- ================================================= -->
+
+                <div class="form-group">
+
+                    <label for="cropName">
+                        Crop Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="cropName"
+                        placeholder="Select crop slot"
+                        required
+                        readonly>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="cropType">
+                        Crop Type / Variety
+                    </label>
+
+                    <input
+                        type="text"
+                        id="cropType"
+                        placeholder="Select crop slot"
+                        readonly>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- QUANTITY -->
+                <!-- ================================================= -->
+
+                <div class="form-group">
+
+                    <label for="quantity">
+                        Required Quantity
+                    </label>
+
+                    <input
+                        type="number"
+                        id="quantity"
+                        placeholder="Enter quantity"
+                        min="1"
+                        step="0.01"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="quantityUnit">
+                        Quantity Unit
+                    </label>
+
+                    <select id="quantityUnit"
+                            required>
+
+                        <option value="">
+                            Select unit
+                        </option>
+
+                        <option value="kg">
+                            Kilogram (Kg)
+                        </option>
+
+                        <option value="quintal">
+                            Quintal
+                        </option>
+
+                        <option value="ton">
+                            Ton
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- PRICE -->
+                <!-- ================================================= -->
+
+                <div class="form-group">
+
+                    <label for="bidPrice">
+                        Offered Price
+                    </label>
+
+                    <input
+                        type="number"
+                        id="bidPrice"
+                        placeholder="Enter price"
+                        min="0"
+                        step="0.01"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="priceUnit">
+                        Price Per
+                    </label>
+
+                    <select id="priceUnit"
+                            required>
+
+                        <option value="">
+                            Select
+                        </option>
+
+                        <option value="kg">
+                            Kg
+                        </option>
+
+                        <option value="quintal">
+                            Quintal
+                        </option>
+
+                        <option value="ton">
+                            Ton
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- DATES -->
+                <!-- ================================================= -->
+
+                <div class="form-group">
+
+                    <label for="requiredDate">
+                        Crop Required Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="requiredDate"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="bidClosingDate">
+                        Bid Closing Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="bidClosingDate"
+                        required>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- QUALITY -->
+                <!-- ================================================= -->
+
+                <div class="form-group">
+
+                    <label for="quality">
+                        Required Quality
+                    </label>
+
+                    <select id="quality"
+                            required>
+
+                        <option value="">
+                            Select quality
+                        </option>
+
+                        <option value="standard">
+                            Standard
+                        </option>
+
+                        <option value="good">
+                            Good
+                        </option>
+
+                        <option value="premium">
+                            Premium
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="moisture">
+                        Maximum Moisture %
+                    </label>
+
+                    <input
+                        type="number"
+                        id="moisture"
+                        placeholder="Example: 12"
+                        min="0"
+                        max="100"
+                        step="0.1">
+
+                </div>
+
+
+            </div>
+
+
+            <!-- ================================================= -->
+            <!-- ADDITIONAL REQUIREMENTS -->
+            <!-- ================================================= -->
+
+            <div class="form-group full-width">
+
+                <label for="additionalRequirements">
+
+                    Additional Requirements
+
+                </label>
+
+                <textarea
+                    id="additionalRequirements"
+                    rows="4"
+                    placeholder="Enter additional requirements..."></textarea>
+
+            </div>
+
+
+            <!-- ================================================= -->
+            <!-- MESSAGE -->
+            <!-- ================================================= -->
+
+            <p id="message"></p>
+
+
+            <!-- ================================================= -->
+            <!-- BUTTON -->
+            <!-- ================================================= -->
+
+            <button
+                type="submit"
+                class="submit-btn"
+                id="submitBtn">
+
+                Create Bid
+
+            </button>
+
+
+        </form>
+
+    </div>
+
+</main>
+
+
+<script>
+
+
+// =========================================================
+// API
+// =========================================================
+
+const API_URL =
+    "http://127.0.0.1:8000";
+
+
+// =========================================================
+// ELEMENTS
+// =========================================================
+
+const createBidForm =
+    document.getElementById("createBidForm");
+
+const submitBtn =
+    document.getElementById("submitBtn");
+
+const message =
+    document.getElementById("message");
+
+const cropSlotSelect =
+    document.getElementById("cropSlot");
+
+
+// =========================================================
+// WHOLESALER DATA
+// =========================================================
+
+const savedWholesaler =
+    localStorage.getItem("wholesalerData");
+
+
+let wholesaler = null;
+
+
+if (!savedWholesaler) {
+
+    alert(
+        "Please login as a wholesaler first."
+    );
+
+    window.location.href =
+        "wholesaler-login.html";
+
+}
+else {
+
+    try {
+
+        wholesaler =
+            JSON.parse(savedWholesaler);
+
+
+        if (!wholesaler.wholesaler_id) {
+
+            throw new Error(
+                "Wholesaler ID missing"
+            );
+
+        }
+
+
+        document.getElementById(
+            "companyName"
+        ).value =
+            wholesaler.company_name || "";
+
+
+        document.getElementById(
+            "companyLocation"
+        ).value =
+            wholesaler.company_location || "";
+
+    }
+
+    catch(error) {
+
+        console.error(error);
+
+        alert(
+            "Wholesaler login data is invalid. Please login again."
+        );
+
+        localStorage.removeItem(
+            "wholesalerData"
+        );
+
+        window.location.href =
+            "wholesaler-login.html";
+
+    }
+
+}
+
+
+// =========================================================
+// LOAD FARMER CROP SLOTS
+// =========================================================
+
+async function loadCropSlots() {
+
+  cropSlotSelect.innerHTML = `
+    <option value="">
+        Loading crop slots...
+    </option>
+`;
+
+
+    try {
+
+        const response =
+            await fetch(
+                API_URL +
+                "/api/crop-slots"
+            );
+
+
+        const responseText =
+            await response.text();
+
+
+        let data;
+
+
+        try {
+
+            data =
+                JSON.parse(responseText);
+
+        }
+
+        catch(error) {
+
+            throw new Error(
+                "Invalid response from backend"
+            );
+
+        }
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.detail ||
+                "Failed to load crop slots"
+            );
+
+        }
+
+
+        const slots = data;
+
+
+        cropSlotSelect.innerHTML = `
+
+            <option value="">
+
+                Select farmer crop slot
+
+            </option>
+
+        `;
+
+
+        if (
+            !Array.isArray(slots) ||
+            slots.length === 0
+        ) {
+
+            cropSlotSelect.innerHTML = `
+
+                <option value="">
+
+                    No available crop slots
+
+                </option>
+
+            `;
+
+
+            message.textContent =
+                "No farmer crop slots are available.";
+
+            message.style.color =
+                "#c62828";
+
+            return;
+
+        }
+
+
+        slots.forEach(
+            function(slot) {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+
+                option.value =
+                    String(slot.id);
+
+
+                option.textContent =
+                    "Slot #" +
+                    slot.id +
+                    " - " +
+                    slot.crop_name +
+                    " - " +
+                    slot.quantity +
+                    " " +
+                    slot.quantity_unit +
+                    " - Farmer: " +
+                    slot.farmer_name;
+
+
+                option.dataset.slot =
+                    JSON.stringify(slot);
+
+
+                cropSlotSelect.appendChild(
+                    option
+                );
+
+            }
+        );
+
+
+        message.textContent =
+            slots.length +
+            " crop slot(s) available.";
+
+        message.style.color =
+            "#267a35";
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "LOAD CROP SLOTS ERROR:",
+            error
+        );
+
+
+        cropSlotSelect.innerHTML = `
+
+            <option value="">
+
+                Could not load crop slots
+
+            </option>
+
+        `;
+
+
+        message.textContent =
+            "Could not load crop slots: " +
+            error.message;
+
+        message.style.color =
+            "#c62828";
+
+    }
+
+}
+
+
+// =========================================================
+// CROP SLOT SELECTED
+// =========================================================
+
+cropSlotSelect.addEventListener(
+    "change",
+    function() {
+
+        const selectedOption =
+            cropSlotSelect.options[
+                cropSlotSelect.selectedIndex
+            ];
+
+
+        if (
+            !selectedOption ||
+            !selectedOption.dataset.slot
+        ) {
+
+            return;
+
+        }
+
+
+        const slot =
+            JSON.parse(
+                selectedOption.dataset.slot
+            );
+
+
+        // Crop
+
+        document.getElementById(
+            "cropName"
+        ).value =
+            slot.crop_name || "";
+
+
+        document.getElementById(
+            "cropType"
+        ).value =
+            slot.crop_type || "";
+
+
+        // Quantity
+
+        document.getElementById(
+            "quantity"
+        ).value =
+            slot.quantity || "";
+
+
+        document.getElementById(
+            "quantityUnit"
+        ).value =
+            slot.quantity_unit || "";
+
+
+        // Expected price
+
+        document.getElementById(
+            "bidPrice"
+        ).value =
+            slot.expected_price || "";
+
+
+        document.getElementById(
+            "priceUnit"
+        ).value =
+            slot.price_unit || "";
+
+
+        // Quality
+
+        const quality =
+            String(
+                slot.quality || ""
+            ).toLowerCase().trim();
+
+
+        if (
+            ["standard", "good", "premium"]
+            .includes(quality)
+        ) {
+
+            document.getElementById(
+                "quality"
+            ).value =
+                quality;
+
+        }
+
+
+        // Moisture
+
+        document.getElementById(
+            "moisture"
+        ).value =
+            slot.moisture || "";
+
+
+        message.textContent =
+            "Crop slot #" +
+            slot.id +
+            " selected.";
+
+        message.style.color =
+            "#267a35";
+
+    }
+);
+
+
+// =========================================================
+// CREATE BID
+// =========================================================
+
+createBidForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        // -----------------------------------------------------
+        // CHECK WHOLESALER
+        // -----------------------------------------------------
+
+        if (
+            !wholesaler ||
+            !wholesaler.wholesaler_id
+        ) {
+
+            alert(
+                "Please login as a wholesaler first."
+            );
+
+            window.location.href =
+                "wholesaler-login.html";
+
+            return;
+
+        }
+
+
+        // -----------------------------------------------------
+        // GET CROP SLOT ID
+        // -----------------------------------------------------
+
+        const cropSlotId =
+            Number(
+                cropSlotSelect.value
+            );
+
+
+        if (!cropSlotId) {
+
+            message.textContent =
+                "Please select a farmer crop slot.";
+
+            message.style.color =
+                "#c62828";
+
+            return;
+
+        }
+
+
+        // -----------------------------------------------------
+        // GET VALUES
+        // -----------------------------------------------------
+
+        const quantity =
+            Number(
+                document.getElementById(
+                    "quantity"
+                ).value
+            );
+
+
+        const bidPrice =
+            Number(
+                document.getElementById(
+                    "bidPrice"
+                ).value
+            );
+
+
+        if (quantity <= 0) {
+
+            message.textContent =
+                "Quantity must be greater than zero.";
+
+            message.style.color =
+                "#c62828";
+
+            return;
+
+        }
+
+
+        if (bidPrice < 0) {
+
+            message.textContent =
+                "Bid price cannot be negative.";
+
+            message.style.color =
+                "#c62828";
+
+            return;
+
+        }
+
+
+        // -----------------------------------------------------
+        // BUTTON
+        // -----------------------------------------------------
+
+        submitBtn.disabled =
+            true;
+
+        submitBtn.textContent =
+            "Creating Bid...";
+
+        message.textContent =
+            "";
+
+
+        // -----------------------------------------------------
+        // BID DATA
+        // -----------------------------------------------------
+
+        const bidData = {
+
+            wholesaler_id:
+                Number(
+                    wholesaler.wholesaler_id
+                ),
+
+            crop_slot_id:
+                cropSlotId,
+
+            company_name:
+                document.getElementById(
+                    "companyName"
+                ).value.trim(),
+
+            company_location:
+                document.getElementById(
+                    "companyLocation"
+                ).value.trim(),
+
+            crop_name:
+                document.getElementById(
+                    "cropName"
+                ).value.trim(),
+
+            crop_type:
+                document.getElementById(
+                    "cropType"
+                ).value.trim()
+                || null,
+
+            quantity:
+                quantity,
+
+            quantity_unit:
+                document.getElementById(
+                    "quantityUnit"
+                ).value,
+
+            bid_price:
+                bidPrice,
+
+            price_unit:
+                document.getElementById(
+                    "priceUnit"
+                ).value,
+
+            required_date:
+                document.getElementById(
+                    "requiredDate"
+                ).value,
+
+            bid_closing_date:
+                document.getElementById(
+                    "bidClosingDate"
+                ).value,
+
+            quality:
+                document.getElementById(
+                    "quality"
+                ).value,
+
+            moisture:
+                document.getElementById(
+                    "moisture"
+                ).value
+                ?
+                Number(
+                    document.getElementById(
+                        "moisture"
+                    ).value
+                )
+                :
+                null,
+
+            additional_requirements:
+                document.getElementById(
+                    "additionalRequirements"
+                ).value.trim()
+                || null
+        };
+
+
+        console.log(
+            "FINAL BID DATA:",
+            bidData
+        );
+
+
+        // -----------------------------------------------------
+        // SEND TO BACKEND
+        // -----------------------------------------------------
+
+        try {
+
+            const response =
+                await fetch(
+
+                    API_URL +
+                    "/api/bids/create",
+
+                    {
+
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json"
+
+                        },
+
+                        body:
+                            JSON.stringify(
+                                bidData
+                            )
+
+                    }
+                );
+
+
+            const responseText =
+                await response.text();
+
+
+            console.log(
+                "HTTP STATUS:",
+                response.status
+            );
+
+
+            console.log(
+                "BACKEND RESPONSE:",
+                responseText
+            );
+
+
+            let data;
+
+
+            try {
+
+                data =
+                    JSON.parse(
+                        responseText
+                    );
+
+            }
+
+            catch(error) {
+
+                data = {
+
+                    raw_response:
+                        responseText
+
+                };
+
+            }
+
+
+            // -------------------------------------------------
+            // SUCCESS
+            // -------------------------------------------------
+
+            if (response.ok) {
+
+                localStorage.setItem(
+                    "bidId",
+                    String(data.bid_id)
+                );
+
+
+                message.textContent =
+                    "Bid created successfully! Bid ID: " +
+                    data.bid_id;
+
+                message.style.color =
+                    "#267a35";
+
+
+                alert(
+                    "Bid created successfully!\n\n" +
+                    "Bid ID: " +
+                    data.bid_id
+                );
+
+
+                window.location.href =
+                    "wholesaler-dashboard.html";
+
+                return;
+
+            }
+
+
+            // -------------------------------------------------
+            // BACKEND ERROR
+            // -------------------------------------------------
+
+            let errorMessage =
+                "Failed to create bid.";
+
+
+            if (data.detail) {
+
+                if (
+                    typeof data.detail ===
+                    "string"
+                ) {
+
+                    errorMessage =
+                        data.detail;
+
+                }
+
+                else {
+
+                    errorMessage =
+                        JSON.stringify(
+                            data.detail
+                        );
+
+                }
+
+            }
+
+            else if (data.raw_response) {
+
+                errorMessage =
+                    data.raw_response;
+
+            }
+
+
+            message.textContent =
+                "Backend Error: " +
+                errorMessage;
+
+            message.style.color =
+                "#c62828";
+
+
+            submitBtn.disabled =
+                false;
+
+            submitBtn.textContent =
+                "Create Bid";
+
+        }
+
+        catch(error) {
+
+            console.error(
+                "FETCH ERROR:",
+                error
+            );
+
+
+            message.textContent =
+                "Connection failed: " +
+                error.message;
+
+            message.style.color =
+                "#c62828";
+
+
+            submitBtn.disabled =
+                false;
+
+            submitBtn.textContent =
+                "Create Bid";
+
+        }
+
+    }
+);
+
+
+// =========================================================
+// START
+// =========================================================
+
+if (wholesaler) {
+
+    loadCropSlots();
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,114 @@
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5fff7;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            width: 380px;
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+            text-align: center;
+        }
+
+        .logo {
+            color: #16803a;
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+
+        h2 {
+            color: #16803a;
+            margin-bottom: 25px;
+        }
+
+        .input-box {
+            text-align: left;
+            margin-bottom: 18px;
+        }
+
+        .input-box label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cfd8d1;
+            border-radius: 8px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .input-box input:focus {
+            border-color: #16803a;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #16803a;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .login-btn:hover {
+            background: #11662e;
+        }
+
+        .register-text {
+            margin-top: 22px;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .register-link {
+            color: #16803a;
+            font-weight: bold;
+            text-decoration: none;
+            margin-left: 5px;
+        }
+
+        .register-link:hover {
+            text-decoration: underline;
+        }
+
+        .back-btn {
+            display: block;
+            margin-top: 18px;
+            color: #16803a;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-btn:hover {
+            text-decoration: underline;
+        }
+    

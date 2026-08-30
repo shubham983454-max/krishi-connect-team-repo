@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Customer Dashboard | Krishi Connect</title>
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="customer-dashboard.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         MAIN DASHBOARD
+    ========================== -->
+
+    <div class="dashboard">
+
+
+        <!-- =========================
+             TOP HEADER
+        ========================== -->
+
+        <header class="header">
+
+            <div class="header-left">
+
+                <div class="logo">
+                    🌱
+                </div>
+
+                <div>
+                    <h1>Krishi-Connect</h1>
+
+                    <p>
+                        Connect. Trade. Grow Together
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <span class="customer-text">
+                    Customer
+                </span>
+
+              <button
+    class="customer-icon"
+    type="button"
+    onclick="openCustomerProfile()"
+    aria-label="Open customer profile">
+
+    <i class="fa-solid fa-user"></i>
+
+</button>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =========================
+             HORIZONTAL IMAGE
+        ========================== -->
+
+        <section class="hero-image">
+
+            <!--
+            =====================================================
+            IMAGE
+            =====================================================
+            -->
+
+            <img
+                src="https://i.ibb.co/s9SjDws4/farmer.png"
+                alt="Krishi Connect Agriculture"
+            >
+
+            <div class="image-overlay">
+
+                <h2>
+                    Fresh From Farmers
+                </h2>
+
+                <p>
+                    Discover better prices and connect directly
+                    with farmers near you.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             WELCOME
+        ========================== -->
+
+        <section class="welcome">
+
+            <div>
+
+                <span class="small-title">
+                    CUSTOMER DASHBOARD
+                </span>
+
+                <h2>
+                    Welcome to Krishi Connect 👋
+                </h2>
+
+                <p>
+                    Explore current agricultural market prices
+                    and connect with nearby farmers.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             MAIN OPTIONS
+        ========================== -->
+
+        <section class="main-options">
+
+
+            <!-- MARKET PRICE CARD -->
+
+            <div class="option-card">
+
+                <div class="card-icon market-icon">
+                    📊
+                </div>
+
+                <span class="card-label">
+                    MARKET INFORMATION
+                </span>
+
+                <h2>
+                    View Market Price
+                </h2>
+
+                <p>
+                    Check the latest market prices for crops
+                    and agricultural products.
+                </p>
+
+                <button
+                    class="card-button"
+                    onclick="viewMarketPrice()">
+
+                    View Market Price
+                    <span>→</span>
+
+                </button>
+
+            </div>
+
+
+
+            <!-- FARMER CARD -->
+
+            <div class="option-card">
+
+                <div class="card-icon farmer-icon">
+                    👨‍🌾
+                </div>
+
+                <span class="card-label">
+                    DIRECT CONNECTION
+                </span>
+
+                <h2>
+                    Connect With Nearby Farmers
+                </h2>
+
+                <p>
+                    Find farmers near you and view the crop
+                    bids created by them.
+                </p>
+
+                <button
+                    class="card-button"
+                    onclick="connectFarmers()">
+
+                    Connect With Nearby Farmers
+                    <span>→</span>
+
+                </button>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =========================
+             INFORMATION SECTION
+        ========================== -->
+
+        <section class="how-section">
+
+            <div class="section-heading">
+
+                <span>
+                    SIMPLE & DIRECT
+                </span>
+
+                <h2>
+                    How It Works
+                </h2>
+
+            </div>
+
+
+            <div class="steps">
+
+
+                <div class="step">
+
+                    <div class="step-number">
+                        01
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Check Prices
+                        </h3>
+
+                        <p>
+                            See current agricultural
+                            market prices.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="step">
+
+                    <div class="step-number">
+                        02
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            View Farmer Bids
+                        </h3>
+
+                        <p>
+                            Explore bids posted by
+                            nearby farmers.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="step">
+
+                    <div class="step-number">
+                        03
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Connect
+                        </h3>
+
+                        <p>
+                            Connect directly with
+                            the farmer.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             FOOTER
+        ========================== -->
+
+        <footer>
+
+            <p>
+                © 2026 Krishi-Connect
+            </p>
+
+            <span>
+                Empowering Farmers • Connecting Buyers
+            </span>
+
+        </footer>
+
+
+    </div>
+<!-- =========================================================
+     CUSTOMER PROFILE POPUP
+========================================================= -->
+
+<div id="customerProfilePopup"
+     class="profile-popup">
+
+    <div class="profile-card">
+
+        <!-- CLOSE -->
+
+        <button
+            class="profile-close"
+            type="button"
+            onclick="closeCustomerProfile()">
+
+            ×
+
+        </button>
+
+
+        <!-- PROFILE ICON -->
+
+        <div class="profile-avatar">
+
+            <i class="fa-solid fa-user"></i>
+
+        </div>
+
+
+        <h2>
+            Customer Profile
+        </h2>
+
+
+        <!-- PROFILE DATA -->
+
+        <div class="profile-info">
+
+            <div class="profile-row">
+
+                <strong>
+                    Name
+                </strong>
+
+                <span id="customerProfileName">
+                    -
+                </span>
+
+            </div>
+
+
+            <div class="profile-row">
+
+                <strong>
+                    Customer ID
+                </strong>
+
+                <span id="customerProfileId">
+                    -
+                </span>
+
+            </div>
+
+
+            <div class="profile-row">
+
+                <strong>
+                    Mobile
+                </strong>
+
+                <span id="customerProfileMobile">
+                    -
+                </span>
+
+            </div>
+
+
+            <div class="profile-row">
+
+                <strong>
+                    Location
+                </strong>
+
+                <span id="customerProfileLocation">
+                    -
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- LOGOUT -->
+
+        <button
+            class="profile-logout"
+            type="button"
+            onclick="logoutCustomer()">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            Logout
+
+        </button>
+
+    </div>
+
+</div>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+// =========================================================
+// GET CUSTOMER DATA
+// =========================================================
+
+function getCustomerData() {
+
+    const storedData =
+        localStorage.getItem("customerData");
+
+    console.log(
+        "Stored customerData:",
+        storedData
+    );
+
+    if (!storedData) {
+
+        return null;
+
+    }
+
+    try {
+
+        const customer =
+            JSON.parse(storedData);
+
+        console.log(
+            "Parsed customer:",
+            customer
+        );
+
+        return customer;
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "Customer data JSON error:",
+            error
+        );
+
+        return null;
+
+    }
+
+}
+
+
+// =========================================================
+// LOAD CUSTOMER NAME
+// =========================================================
+
+function loadCustomerName() {
+
+    const customer =
+        getCustomerData();
+
+    if (!customer) {
+
+        console.log(
+            "No customer data available."
+        );
+
+        return;
+
+    }
+
+    const welcomeHeading =
+        document.querySelector(".welcome h2");
+
+    if (welcomeHeading) {
+
+        welcomeHeading.textContent =
+            "Welcome to Krishi Connect, " +
+            (customer.name || "Customer") +
+            " 👋";
+
+    }
+
+}
+
+
+// =========================================================
+// OPEN CUSTOMER PROFILE
+// =========================================================
+
+function openCustomerProfile() {
+
+    console.log(
+        "CUSTOMER PROFILE CLICKED"
+    );
+
+    const popup =
+        document.getElementById(
+            "customerProfilePopup"
+        );
+
+    if (!popup) {
+
+        console.error(
+            "Customer profile popup not found"
+        );
+
+        return;
+
+    }
+
+    const customer =
+        getCustomerData();
+
+    if (!customer) {
+
+        alert(
+            "Customer data not found. Please login again."
+        );
+
+        return;
+
+    }
+
+
+    // NAME
+
+    const nameElement =
+        document.getElementById(
+            "customerProfileName"
+        );
+
+    if (nameElement) {
+
+        nameElement.textContent =
+            customer.name || "-";
+
+    }
+
+
+    // CUSTOMER ID
+
+    const idElement =
+        document.getElementById(
+            "customerProfileId"
+        );
+
+    if (idElement) {
+
+        idElement.textContent =
+            customer.customer_id || "-";
+
+    }
+
+
+    // MOBILE
+
+    const mobileElement =
+        document.getElementById(
+            "customerProfileMobile"
+        );
+
+    if (mobileElement) {
+
+        mobileElement.textContent =
+            customer.mobile || "-";
+
+    }
+
+
+    // LOCATION
+
+    const locationElement =
+        document.getElementById(
+            "customerProfileLocation"
+        );
+
+    if (locationElement) {
+
+        locationElement.textContent =
+            customer.location || "-";
+
+    }
+
+
+    // SHOW POPUP
+
+    popup.classList.add("show");
+
+}
+
+
+// =========================================================
+// CLOSE CUSTOMER PROFILE
+// =========================================================
+
+function closeCustomerProfile() {
+
+    const popup =
+        document.getElementById(
+            "customerProfilePopup"
+        );
+
+    if (popup) {
+
+        popup.classList.remove("show");
+
+    }
+
+}
+
+
+// =========================================================
+// CLOSE POPUP WHEN CLICKING OUTSIDE
+// =========================================================
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        const popup =
+            document.getElementById(
+                "customerProfilePopup"
+            );
+
+        const card =
+            document.querySelector(
+                "#customerProfilePopup .profile-card"
+            );
+
+        const profileButton =
+            document.querySelector(
+                ".customer-icon"
+            );
+
+        if (
+            popup &&
+            popup.classList.contains("show") &&
+            card &&
+            !card.contains(event.target) &&
+            profileButton &&
+            !profileButton.contains(event.target)
+        ) {
+
+            closeCustomerProfile();
+
+        }
+
+    }
+);
+
+
+// =========================================================
+// CUSTOMER LOGOUT
+// =========================================================
+
+function logoutCustomer() {
+
+    localStorage.removeItem(
+        "customerData"
+    );
+
+    localStorage.removeItem(
+        "customerId"
+    );
+
+    localStorage.removeItem(
+        "customerName"
+    );
+
+    localStorage.removeItem(
+        "customerMobile"
+    );
+
+    localStorage.removeItem(
+        "customerLocation"
+    );
+
+
+    // RETURN TO MAIN HOME PAGE
+
+    window.location.href =
+        "index.html";
+
+}
+
+
+// =========================================================
+// LOAD CUSTOMER DASHBOARD
+// =========================================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        console.log(
+            "Customer dashboard loaded"
+        );
+
+        loadCustomerName();
+
+    }
+);
+
+
+    function viewMarketPrice() {
+
+    localStorage.setItem(
+        "marketPriceFrom",
+        "customer"
+    );
+
+    window.location.href =
+        "market-prices.html";
+
+}
+
+
+
+       function connectFarmers() {
+
+    window.location.href =
+        "customer-farmers.html";
+
+}
+function connectFarmers() {
+
+    window.location.href =
+        "customer-farmer-bids.html";
+
+}
+
+    </script>
+
+
+</body>
+
+</html>

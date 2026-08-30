@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Farmer Registration</title>
+
+    <link rel="stylesheet" href="farmer-register.css">
+</head>
+
+<body>
+
+<div class="register-container">
+
+    <div class="register-box">
+
+        <h1>Farmer Registration</h1>
+
+        <p class="subtitle">
+            Create your Krishi Connect farmer account
+        </p>
+
+        <form id="registerForm">
+
+            <label for="name">
+                Farmer Name
+            </label>
+
+            <input
+                type="text"
+                id="name"
+                placeholder="Enter farmer name"
+                required
+            >
+
+            <label for="mobile">
+                Mobile Number
+            </label>
+
+            <input
+                type="tel"
+                id="mobile"
+                placeholder="Enter mobile number"
+                required
+            >
+
+            <label for="farm_location">
+                Farm Location
+            </label>
+
+            <input
+                type="text"
+                id="farm_location"
+                placeholder="Enter farm location"
+                required
+            >
+
+            <label for="password">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Create password"
+                required
+            >
+
+            <button type="submit">
+                Register
+            </button>
+
+        </form>
+
+        <p id="message"></p>
+
+        <a href="login.html" class="login-link">
+            Already have an account? Login
+        </a>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const form = document.getElementById("registerForm");
+
+form.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    const farmerData = {
+
+        name: document.getElementById("name").value,
+
+        mobile: document.getElementById("mobile").value,
+
+        password: document.getElementById("password").value,
+
+        farm_location:
+            document.getElementById("farm_location").value
+
+    };
+
+
+    try {
+
+        const response = await fetch(
+            "http://127.0.0.1:8000/api/farmers/register",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify(farmerData)
+            }
+        );
+
+
+        const data = await response.json();
+
+
+        if (response.ok) {
+
+            document.getElementById("message").textContent =
+                "Registration successful! You can now login.";
+
+            document.getElementById("message").className =
+                "success";
+
+            form.reset();
+
+        }
+
+        else {
+
+            document.getElementById("message").textContent =
+                data.detail || "Registration failed.";
+
+            document.getElementById("message").className =
+                "error";
+
+        }
+
+    }
+
+    catch (error) {
+
+        document.getElementById("message").textContent =
+            "Cannot connect to backend.";
+
+        document.getElementById("message").className =
+            "error";
+
+        console.error(error);
+
+    }
+
+});
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>View Farmer Bids</title>
+
+<link rel="stylesheet"
+      href="view-bids.css">
+
+
+</head>
+
+<body>
+
+<header class="header">
+
+<a href="wholesaler-dashboard.html"
+   class="back-btn">
+
+    ← Dashboard
+
+</a>
+
+
+<div>
+
+    <h1>Farmer Bids</h1>
+
+    <p>
+        View available crop slots from farmers
+    </p>
+
+</div>
+
+
+</header>
+
+<main class="container">
+
+
+<div class="table-card">
+
+
+    <div class="table-header">
+
+        <div>
+
+            <h2>
+                Available Farmer Crop Slots
+            </h2>
+
+            <p>
+                View crops offered by farmers and create your bid.
+            </p>
+
+        </div>
+
+
+        <button
+            class="refresh-btn"
+            onclick="loadFarmerBids()">
+
+            Refresh
+
+        </button>
+
+    </div>
+
+
+
+    <div class="table-wrapper">
+
+
+        <table id="farmerBidsTable">
+
+
+            <thead>
+
+                <tr>
+
+                    <th>Crop Name</th>
+
+                    <th>Crop ID</th>
+
+                    <th>Farmer Name</th>
+
+                    <th>Farmer Location</th>
+
+                    <th>Quantity</th>
+
+                    <th>Quantity Unit</th>
+
+                    <th>Expected Price</th>
+
+                    <th>Price Unit</th>
+
+                    <th>Quality</th>
+
+                    <th>Available Date</th>
+
+                    <th>Status</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+
+
+            <tbody id="farmerBidsBody">
+
+                <tr>
+
+                    <td
+                        colspan="12"
+                        style="text-align:center;">
+
+                        Loading farmer crop slots...
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+
+        </table>
+
+    </div>
+
+</div>
+
+
+</main>
+
+<script>
+
+
+// =========================================================
+// API
+// =========================================================
+
+const API_URL =
+    "http://127.0.0.1:8000";
+
+
+// =========================================================
+// GET TABLE
+// =========================================================
+
+const farmerBidsBody =
+    document.getElementById(
+        "farmerBidsBody"
+    );
+
+
+// =========================================================
+// LOAD FARMER CROP SLOTS
+// =========================================================
+
+async function loadFarmerBids() {
+
+
+    farmerBidsBody.innerHTML = `
+
+        <tr>
+
+            <td
+                colspan="12"
+                style="text-align:center;">
+
+                Loading farmer crop slots...
+
+            </td>
+
+        </tr>
+
+    `;
+
+
+    try {
+
+
+        // -------------------------------------------------
+        // GET ALL FARMER CROP SLOTS
+        // -------------------------------------------------
+
+        const response =
+            await fetch(
+
+                API_URL +
+                "/api/crop-slots"
+
+            );
+
+
+        const responseText =
+            await response.text();
+
+
+        console.log(
+            "Crop slots status:",
+            response.status
+        );
+
+
+        console.log(
+            "Crop slots response:",
+            responseText
+        );
+
+
+        let data;
+
+
+        try {
+
+            data =
+                JSON.parse(
+                    responseText
+                );
+
+        }
+
+        catch(error) {
+
+            throw new Error(
+                "Backend returned invalid response."
+            );
+
+        }
+
+
+        // -------------------------------------------------
+        // BACKEND ERROR
+        // -------------------------------------------------
+
+        if (!response.ok) {
+
+            throw new Error(
+
+                data.detail ||
+                "Failed to load farmer crop slots."
+
+            );
+
+        }
+
+
+        // -------------------------------------------------
+        // CHECK ARRAY
+        // -------------------------------------------------
+
+        if (!Array.isArray(data)) {
+
+            throw new Error(
+                "Invalid crop slot data received."
+            );
+
+        }
+
+
+        // -------------------------------------------------
+        // CLEAR TABLE
+        // -------------------------------------------------
+
+        farmerBidsBody.innerHTML = "";
+
+
+        // -------------------------------------------------
+        // NO DATA
+        // -------------------------------------------------
+
+        if (data.length === 0) {
+
+            farmerBidsBody.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="12"
+                        style="text-align:center;">
+
+                        No farmer crop slots available yet.
+
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+
+        }
+
+
+        // -------------------------------------------------
+        // DISPLAY CROP SLOTS
+        // -------------------------------------------------
+
+        data.forEach(
+            function(slot) {
+
+
+                const row =
+                    document.createElement(
+                        "tr"
+                    );
+
+
+                row.innerHTML = `
+
+                    <td>
+                        ${slot.crop_name || "-"}
+                    </td>
+
+                    <td>
+                        ${slot.id || "-"}
+                    </td>
+
+                    <td>
+                        ${slot.farmer_name || "-"}
+                    </td>
+
+                    <td>
+                        ${slot.farm_location || "-"}
+                    </td>
+
+                    <td>
+                        ${slot.quantity || "-"}
+                    </td>
+
+                    <td>
+                        ${slot.quantity_unit || "-"}
+                    </td>
+
+                    <td>
+                        ₹${slot.expected_price || "-"}
+                    </td>
+
+                    <td>
+                        ${slot.price_unit || "-"}
+                    </td>
+
+                    <td>
+                        ${slot.quality || "-"}
+                    </td>
+
+                    <td>
+                        ${slot.available_date || "-"}
+                    </td>
+
+                    <td>
+                        ${slot.status || "Available"}
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="bid-btn"
+                            onclick="createBid(${slot.id})">
+
+                            Create Bid
+
+                        </button>
+
+                    </td>
+
+                `;
+
+
+                farmerBidsBody.appendChild(
+                    row
+                );
+
+            }
+        );
+
+    }
+
+
+    catch(error) {
+
+
+        console.error(
+            "LOAD FARMER BIDS ERROR:",
+            error
+        );
+
+
+        farmerBidsBody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="12"
+                    style="text-align:center;">
+
+                    Cannot load farmer crop slots.
+
+                    <br>
+
+                    ${error.message}
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+}
+
+
+// =========================================================
+// CREATE BID FOR SELECTED CROP SLOT
+// =========================================================
+
+function createBid(
+    cropSlotId
+) {
+
+
+    console.log(
+        "Selected Crop Slot ID:",
+        cropSlotId
+    );
+
+
+    // Save selected crop slot ID
+
+    localStorage.setItem(
+        "selectedCropSlotId",
+        cropSlotId
+    );
+
+
+    // Open create bid page
+
+    window.location.href =
+        "create-bid.html";
+
+}
+
+
+// =========================================================
+// LOAD WHEN PAGE OPENS
+// =========================================================
+
+loadFarmerBids();
+
+
+</script>
+
+</body>
+
+</html>

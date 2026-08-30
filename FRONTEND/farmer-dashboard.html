@@ -1,0 +1,830 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Krishi Connect - Farmer Dashboard</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Dashboard CSS -->
+    <link rel="stylesheet"
+          href="farmer-dashboard.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     LEFT SIDEBAR
+========================================================= -->
+
+<aside class="sidebar">
+
+    <div class="brand">
+
+        <i class="fa-solid fa-leaf"></i>
+
+        <span>Krishi Connect</span>
+
+    </div>
+
+
+    <div class="farmer-box"></div>
+
+
+    
+
+</aside>
+
+
+
+<!-- =========================================================
+     MAIN AREA
+========================================================= -->
+
+<main class="main">
+
+
+    <!-- =====================================================
+         TOP BAR
+    ====================================================== -->
+
+    <header class="topbar">
+
+        <h2>
+            Farmer Dashboard
+        </h2>
+
+
+        <!-- PROFILE BUTTON -->
+
+        <button class="profile-icon"
+                type="button"
+                onclick="openFarmerProfile()"
+                aria-label="Open farmer profile">
+
+            <i class="fa-solid fa-user"></i>
+
+        </button>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         CONTENT
+    ====================================================== -->
+
+    <section class="content">
+
+
+        <!-- TOP IMAGE -->
+
+        <div class="top-farmer-image">
+
+            <div class="image-overlay">
+
+                <div class="image-text">
+
+                    <h1>
+                        Empowering Farmers
+                    </h1>
+
+                    <p>
+                        Connecting crops with better opportunities
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- WELCOME -->
+
+        <div class="welcome">
+
+            <h1>
+                Welcome back, Farmer 👋
+            </h1>
+
+            <p>
+                Manage your crops, check market opportunities
+                and connect directly with buyers.
+            </p>
+
+        </div>
+
+
+
+        <!-- CREATE SLOT -->
+
+        <div class="create-slot">
+
+            <div class="slot-left">
+
+                <div class="slot-icon">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                </div>
+
+
+                <div class="slot-text">
+
+                    <h2>
+                        Create a New Crop Slot
+                    </h2>
+
+                    <p>
+                        Add your crop details, quantity and
+                        expected price to start receiving bids
+                        from buyers.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <button class="create-btn"
+                    onclick="window.location.href='create-slot.html'">
+
+                <i class="fa-solid fa-plus"></i>
+
+                Create Slot
+
+            </button>
+
+        </div>
+
+
+
+        <!-- =================================================
+             FOUR CARDS
+        ================================================== -->
+
+        <div class="features">
+
+
+            <!-- AI -->
+
+            <div class="card">
+
+                <div class="card-icon green-icon">
+
+                    <i class="fa-solid fa-brain"></i>
+
+                </div>
+
+                <h3>
+                    AI Analysis About Demands
+                </h3>
+
+                <p>
+                    Get AI-based insights about crop demand,
+                    buyer interest and upcoming market trends.
+                </p>
+
+                <button class="card-btn">
+
+                    View AI Analysis
+
+                </button>
+
+            </div>
+
+
+
+            <!-- BIDS -->
+
+            <div class="card">
+
+                <div class="card-icon gold-icon">
+
+                    <i class="fa-solid fa-gavel"></i>
+
+                </div>
+
+                <h3>
+                    View Bidd
+                </h3>
+
+                <p>
+                    Check active bids from buyers and compare
+                    offers for your listed crops.
+                </p>
+
+                <button class="card-btn"
+                        onclick="window.location.href='view-bidd.html'">
+
+                    View Bidd
+
+                </button>
+
+            </div>
+
+
+
+            <!-- MARKET PRICE -->
+
+            <div class="card">
+
+                <div class="card-icon light-green-icon">
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                </div>
+
+                <h3>
+                    View Market Price
+                </h3>
+
+                <p>
+                    Check current market prices of your crops
+                    before selling to buyers.
+                </p>
+
+               <button class="card-btn"
+        onclick="openFarmerMarketPrices()">
+
+    Check Prices
+
+</button>
+
+            </div>
+
+
+
+            <!-- QR -->
+
+            <div class="card">
+
+                <div class="card-icon blue-icon">
+
+                    <i class="fa-solid fa-qrcode"></i>
+
+                </div>
+
+                <h3>
+                    Generate QR
+                </h3>
+
+                <p>
+                    Generate a QR code for your crop slot
+                    and digital crop record.
+                </p>
+
+                <button class="card-btn">
+
+                    Generate QR
+
+                </button>
+
+            </div>
+
+        </div>
+       
+         <!-- FOOTER -->
+
+        <div class="bottom-info">
+
+            <div class="weather">
+
+                <i class="fa-solid fa-cloud-sun"></i>
+
+                <div>
+
+                    <strong>
+                        25°C
+                    </strong>
+
+                    <span>
+                        Mostly cloudy
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <p>
+                © 2026 Krishi Connect
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+
+<!-- =========================================================
+     FARMER PROFILE POPUP
+========================================================= -->
+
+<div id="farmerProfilePopup"
+     class="profile-popup">
+
+
+    <div class="profile-card">
+
+
+        <!-- CLOSE -->
+
+        <button class="profile-close"
+                type="button"
+                onclick="closeFarmerProfile()">
+
+            ×
+
+        </button>
+
+
+
+        <!-- PROFILE ICON -->
+
+        <div class="profile-avatar">
+
+            <i class="fa-solid fa-user"></i>
+
+        </div>
+
+
+
+        <h2>
+            Farmer Profile
+        </h2>
+
+
+
+        <!-- PROFILE DATA -->
+
+        <div class="profile-info">
+
+
+            <div class="profile-row">
+
+                <strong>
+                    Name
+                </strong>
+
+                <span id="profileName">
+                    -
+                </span>
+
+            </div>
+
+
+
+            <div class="profile-row">
+
+                <strong>
+                    Farmer ID
+                </strong>
+
+                <span id="profileFarmerId">
+                    -
+                </span>
+
+            </div>
+
+
+
+            <div class="profile-row">
+
+                <strong>
+                    Mobile
+                </strong>
+
+                <span id="profileMobile">
+                    -
+                </span>
+
+            </div>
+
+
+
+            <div class="profile-row">
+
+                <strong>
+                    Location
+                </strong>
+
+                <span id="profileLocation">
+                    -
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- LOGOUT -->
+
+        <button class="profile-logout"
+                type="button"
+                onclick="logoutFarmer()">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            Logout
+
+        </button>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+
+// =========================================================
+// GET FARMER DATA
+// =========================================================
+
+function getFarmerData() {
+
+    const storedData =
+        localStorage.getItem("farmerData");
+
+
+    console.log(
+        "Stored farmerData:",
+        storedData
+    );
+
+
+    if (!storedData) {
+
+        return null;
+
+    }
+
+
+    try {
+
+        const farmer =
+            JSON.parse(storedData);
+
+
+        console.log(
+            "Parsed farmer:",
+            farmer
+        );
+
+
+        return farmer;
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "farmerData JSON error:",
+            error
+        );
+
+        return null;
+
+    }
+
+}
+
+// =========================================================
+// OPEN MARKET PRICES FROM FARMER DASHBOARD
+// =========================================================
+
+function openFarmerMarketPrices() {
+
+    localStorage.setItem(
+        "marketPriceFrom",
+        "farmer"
+    );
+
+    window.location.href =
+        "market-prices.html";
+
+}
+
+// =========================================================
+// LOAD FARMER NAME
+// =========================================================
+
+function loadFarmerName() {
+
+    const farmer =
+        getFarmerData();
+
+
+    if (!farmer) {
+
+        console.log(
+            "No farmer data available."
+        );
+
+        return;
+
+    }
+
+
+    const welcomeHeading =
+        document.querySelector(".welcome h1");
+
+
+    if (welcomeHeading) {
+
+        welcomeHeading.textContent =
+            "Welcome back, " +
+            (farmer.name || "Farmer") +
+            " 👋";
+
+    }
+
+}
+
+
+
+// =========================================================
+// OPEN FARMER PROFILE
+// =========================================================
+
+function openFarmerProfile() {
+
+    console.log(
+        "PROFILE CLICKED"
+    );
+
+
+    const popup =
+        document.getElementById(
+            "farmerProfilePopup"
+        );
+
+
+    if (!popup) {
+
+        console.error(
+            "ERROR: farmerProfilePopup not found"
+        );
+
+        return;
+
+    }
+
+
+    const farmer =
+        getFarmerData();
+
+
+    if (!farmer) {
+
+        alert(
+            "Farmer data not found. Please login again."
+        );
+
+        return;
+
+    }
+
+
+    console.log(
+        "Showing farmer profile:",
+        farmer
+    );
+
+
+    // NAME
+
+    const nameElement =
+        document.getElementById(
+            "profileName"
+        );
+
+
+    if (nameElement) {
+
+        nameElement.textContent =
+            farmer.name || "-";
+
+    }
+
+
+
+    // FARMER ID
+
+    const idElement =
+        document.getElementById(
+            "profileFarmerId"
+        );
+
+
+    if (idElement) {
+
+        idElement.textContent =
+            farmer.farmer_id || "-";
+
+    }
+
+
+
+    // MOBILE
+
+    const mobileElement =
+        document.getElementById(
+            "profileMobile"
+        );
+
+
+    if (mobileElement) {
+
+        mobileElement.textContent =
+            farmer.mobile || "-";
+
+    }
+
+
+
+    // LOCATION
+
+    const locationElement =
+        document.getElementById(
+            "profileLocation"
+        );
+
+
+    if (locationElement) {
+
+        locationElement.textContent =
+            farmer.farm_location || "-";
+
+    }
+
+
+
+    // SHOW POPUP
+
+    popup.classList.add(
+        "show"
+    );
+
+
+    console.log(
+        "PROFILE POPUP OPENED"
+    );
+
+}
+
+
+
+// =========================================================
+// CLOSE PROFILE
+// =========================================================
+
+function closeFarmerProfile() {
+
+    const popup =
+        document.getElementById(
+            "farmerProfilePopup"
+        );
+
+
+    if (popup) {
+
+        popup.classList.remove(
+            "show"
+        );
+
+    }
+
+}
+
+
+
+// =========================================================
+// CLOSE POPUP WHEN CLICKING OUTSIDE
+// =========================================================
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        const popup =
+            document.getElementById(
+                "farmerProfilePopup"
+            );
+
+
+        const card =
+            document.querySelector(
+                ".profile-card"
+            );
+
+
+        const profileButton =
+            document.querySelector(
+                ".profile-icon"
+            );
+
+
+        if (
+            popup &&
+            popup.classList.contains("show") &&
+            card &&
+            !card.contains(event.target) &&
+            profileButton &&
+            !profileButton.contains(event.target)
+        ) {
+
+            closeFarmerProfile();
+
+        }
+
+    }
+);
+
+
+
+// =========================================================
+// LOGOUT
+// =========================================================
+
+function logoutFarmer() {
+
+    localStorage.removeItem(
+        "farmerData"
+    );
+
+    localStorage.removeItem(
+        "farmerId"
+    );
+
+    localStorage.removeItem(
+        "farmerName"
+    );
+
+    localStorage.removeItem(
+        "farmerMobile"
+    );
+
+    localStorage.removeItem(
+        "farmLocation"
+    );
+
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+
+// =========================================================
+// LOAD DASHBOARD
+// =========================================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        console.log(
+            "Dashboard loaded"
+        );
+
+        loadFarmerName();
+
+    }
+);
+
+
+</script>
+
+
+</body>
+
+</html>
+

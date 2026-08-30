@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Transportation Agency - Login</title>
+
+    <link rel="stylesheet"
+          href="transportation-login.css">
+
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     MAIN CONTAINER
+===================================================== -->
+
+<div class="login-container">
+
+
+    <!-- =================================================
+         LEFT SIDE
+    ================================================== -->
+
+    <div class="left-section">
+
+        <div class="brand">
+
+            <h1>🌱 Krishi-Connect</h1>
+
+            <p>
+                Transportation Partner
+            </p>
+
+        </div>
+
+
+        <div class="transport-image">
+
+            🚚
+
+        </div>
+
+
+        <h2>
+            Connect Farmers<br>
+            With Reliable Transport
+        </h2>
+
+        <p class="left-description">
+
+            Help farmers move their crops safely,
+            quickly and efficiently from farm to buyer.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- =================================================
+         RIGHT SIDE
+    ================================================== -->
+
+    <div class="right-section">
+
+
+        <!-- =============================================
+             LOGIN FORM
+        ============================================== -->
+
+        <div id="loginForm" class="form-box">
+
+            <h2>
+                Transportation Agency Login
+            </h2>
+
+            <p class="form-subtitle">
+                Login to manage your transportation services
+            </p>
+
+
+            <label>
+                Email / Mobile Number
+            </label>
+
+            <input
+                type="text"
+                id="loginEmail"
+                placeholder="Enter email or mobile number">
+
+
+            <label>
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Enter password">
+
+
+            <button
+                class="main-button"
+                onclick="loginAgency()">
+
+                Login
+
+            </button>
+
+
+            <p id="loginMessage"
+               class="message">
+            </p>
+
+
+            <p class="switch-text">
+
+                Don't have an account?
+
+                <button
+                    class="link-button"
+                    onclick="showRegister()">
+
+                    Register Now
+
+                </button>
+
+            </p>
+
+        </div>
+
+
+
+        <!-- =============================================
+             REGISTRATION FORM
+        ============================================== -->
+
+        <div id="registerForm"
+             class="form-box hidden">
+
+            <h2>
+                Register Transportation Agency
+            </h2>
+
+            <p class="form-subtitle">
+                Create your transportation partner account
+            </p>
+
+
+            <label>
+                Agency Name
+            </label>
+
+            <input
+                type="text"
+                id="agencyName"
+                placeholder="Enter agency name">
+
+
+            <label>
+                Owner Name
+            </label>
+
+            <input
+                type="text"
+                id="ownerName"
+                placeholder="Enter owner name">
+
+
+            <label>
+                Mobile Number
+            </label>
+
+            <input
+                type="tel"
+                id="registerMobile"
+                placeholder="Enter mobile number">
+
+
+            <label>
+                Email
+            </label>
+
+            <input
+                type="email"
+                id="registerEmail"
+                placeholder="Enter email">
+
+
+            <label>
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="registerPassword"
+                placeholder="Create password">
+
+
+            <label>
+                Confirm Password
+            </label>
+
+            <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirm password">
+
+
+            <label>
+                Agency Location
+            </label>
+
+            <input
+                type="text"
+                id="agencyLocation"
+                placeholder="City / District">
+
+
+            <button
+                class="main-button"
+                onclick="registerAgency()">
+
+                Create Account
+
+            </button>
+
+
+            <p id="registerMessage"
+               class="message">
+            </p>
+
+
+            <p class="switch-text">
+
+                Already have an account?
+
+                <button
+                    class="link-button"
+                    onclick="showLogin()">
+
+                    Login
+
+                </button>
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+
+/* =====================================================
+   SHOW REGISTER
+===================================================== */
+
+function showRegister() {
+
+    document.getElementById("loginForm")
+        .classList.add("hidden");
+
+    document.getElementById("registerForm")
+        .classList.remove("hidden");
+
+}
+
+
+
+/* =====================================================
+   SHOW LOGIN
+===================================================== */
+
+function showLogin() {
+
+    document.getElementById("registerForm")
+        .classList.add("hidden");
+
+    document.getElementById("loginForm")
+        .classList.remove("hidden");
+
+}
+
+
+
+/* =====================================================
+   REGISTER AGENCY
+===================================================== */
+
+function registerAgency() {
+
+
+    const agencyName =
+        document.getElementById("agencyName").value.trim();
+
+    const ownerName =
+        document.getElementById("ownerName").value.trim();
+
+    const mobile =
+        document.getElementById("registerMobile").value.trim();
+
+    const email =
+        document.getElementById("registerEmail").value.trim();
+
+    const password =
+        document.getElementById("registerPassword").value;
+
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
+
+    const location =
+        document.getElementById("agencyLocation").value.trim();
+
+
+    const message =
+        document.getElementById("registerMessage");
+
+
+    if (
+        !agencyName ||
+        !ownerName ||
+        !mobile ||
+        !email ||
+        !password ||
+        !confirmPassword ||
+        !location
+    ) {
+
+        message.innerText =
+            "Please fill all fields.";
+
+        message.className =
+            "message error";
+
+        return;
+
+    }
+
+
+    if (password !== confirmPassword) {
+
+        message.innerText =
+            "Passwords do not match.";
+
+        message.className =
+            "message error";
+
+        return;
+
+    }
+
+
+    /* SAVE TEMPORARY ACCOUNT */
+
+    const agencyData = {
+
+        agencyName: agencyName,
+
+        ownerName: ownerName,
+
+        mobile: mobile,
+
+        email: email,
+
+        password: password,
+
+        location: location
+
+    };
+
+
+    localStorage.setItem(
+        "transportationAgency",
+        JSON.stringify(agencyData)
+    );
+
+
+    message.innerText =
+        "Registration successful! Please login.";
+
+    message.className =
+        "message success";
+
+
+    setTimeout(function () {
+
+        showLogin();
+
+    }, 1200);
+
+}
+
+
+
+/* =====================================================
+   LOGIN AGENCY
+===================================================== */
+
+function loginAgency() {
+
+
+    const loginEmail =
+        document.getElementById("loginEmail").value.trim();
+
+    const loginPassword =
+        document.getElementById("loginPassword").value;
+
+
+    const message =
+        document.getElementById("loginMessage");
+
+
+    const savedAgency =
+        localStorage.getItem("transportationAgency");
+
+
+    if (!savedAgency) {
+
+        message.innerText =
+            "No account found. Please register first.";
+
+        message.className =
+            "message error";
+
+        return;
+
+    }
+
+
+    const agency =
+        JSON.parse(savedAgency);
+
+
+    if (
+        (loginEmail === agency.email ||
+         loginEmail === agency.mobile)
+        &&
+        loginPassword === agency.password
+    ) {
+
+
+        /* LOGIN SUCCESS */
+
+        localStorage.setItem(
+            "transportationLoggedIn",
+            "true"
+        );
+
+
+        window.location.href =
+            "transportation-dashboard.html";
+
+    }
+
+    else {
+
+        message.innerText =
+            "Invalid email/mobile number or password.";
+
+        message.className =
+            "message error";
+
+    }
+
+}
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Wholesaler Registration</title>
+
+    <link rel="stylesheet" href="wholesaler-register.css">
+
+</head>
+
+<body>
+
+<div class="register-container">
+
+    <div class="register-card">
+
+        <h1>Wholesaler Registration</h1>
+
+        <p class="subtitle">
+            Create your company account to access Krishi Connect
+        </p>
+
+
+        <form id="registerForm">
+
+
+            <!-- COMPANY NAME -->
+
+            <div class="form-group">
+
+                <label for="companyName">
+                    Company Name
+                </label>
+
+                <input
+                    type="text"
+                    id="companyName"
+                    placeholder="Enter company name"
+                    required
+                >
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter company email"
+                    required
+                >
+
+            </div>
+
+
+            <!-- LOCATION -->
+
+            <div class="form-group">
+
+                <label for="companyLocation">
+                    Company Location
+                </label>
+
+                <input
+                    type="text"
+                    id="companyLocation"
+                    placeholder="Enter company location"
+                    required
+                >
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Create password"
+                    required
+                >
+
+            </div>
+
+
+            <!-- CONFIRM PASSWORD -->
+
+            <div class="form-group">
+
+                <label for="confirmPassword">
+                    Confirm Password
+                </label>
+
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="Confirm password"
+                    required
+                >
+
+            </div>
+
+
+            <!-- REGISTER BUTTON -->
+
+            <button
+                type="submit"
+                class="register-btn"
+                id="registerButton">
+
+                Create Account
+
+            </button>
+
+
+        </form>
+
+
+        <!-- MESSAGE -->
+
+        <p id="message"></p>
+
+
+        <!-- LOGIN -->
+
+        <p class="login-link">
+
+            Already have an account?
+
+            <a href="wholesaler-login.html">
+                Login here
+            </a>
+
+        </p>
+
+
+        <!-- BACK -->
+
+        <a href="index.html" class="back-link">
+
+            ← Back to Main Dashboard
+
+        </a>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+const registerForm =
+    document.getElementById("registerForm");
+
+
+registerForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        // ==========================================
+        // GET VALUES
+        // ==========================================
+
+        const companyName =
+            document.getElementById(
+                "companyName"
+            ).value.trim();
+
+
+        const email =
+            document.getElementById(
+                "email"
+            ).value.trim();
+
+
+        const companyLocation =
+            document.getElementById(
+                "companyLocation"
+            ).value.trim();
+
+
+        const password =
+            document.getElementById(
+                "password"
+            ).value;
+
+
+        const confirmPassword =
+            document.getElementById(
+                "confirmPassword"
+            ).value;
+
+
+        const message =
+            document.getElementById("message");
+
+
+        const registerButton =
+            document.getElementById(
+                "registerButton"
+            );
+
+
+        // ==========================================
+        // PASSWORD CHECK
+        // ==========================================
+
+        if (password !== confirmPassword) {
+
+            message.textContent =
+                "Passwords do not match.";
+
+            message.style.color =
+                "#c62828";
+
+            return;
+
+        }
+
+
+        // ==========================================
+        // DISABLE BUTTON
+        // ==========================================
+
+        registerButton.disabled = true;
+
+        registerButton.textContent =
+            "Creating Account...";
+
+
+        // ==========================================
+        // DATA FOR FASTAPI
+        // ==========================================
+
+        const wholesalerData = {
+
+            company_name:
+                companyName,
+
+            email:
+                email,
+
+            password:
+                password,
+
+            company_location:
+                companyLocation
+
+        };
+
+
+        // ==========================================
+        // SEND DATA TO BACKEND
+        // ==========================================
+
+        try {
+
+            const response = await fetch(
+
+                "http://127.0.0.1:8000/api/wholesalers/register",
+
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body:
+                        JSON.stringify(
+                            wholesalerData
+                        )
+
+                }
+
+            );
+
+
+            const data =
+                await response.json();
+
+
+            // ==========================================
+            // SUCCESS
+            // ==========================================
+
+            if (response.ok) {
+
+                message.textContent =
+                    "Registration successful!";
+
+                message.style.color =
+                    "#267a35";
+
+
+                registerButton.textContent =
+                    "Account Created";
+
+
+                // Save wholesaler ID
+
+                localStorage.setItem(
+                    "wholesalerId",
+                    data.wholesaler_id
+                );
+
+
+                // Go to login page
+
+                setTimeout(function() {
+
+                    window.location.href =
+                        "wholesaler-login.html";
+
+                }, 1000);
+
+            }
+
+
+            // ==========================================
+            // BACKEND ERROR
+            // ==========================================
+
+            else {
+
+                message.textContent =
+                    data.detail ||
+                    "Registration failed.";
+
+                message.style.color =
+                    "#c62828";
+
+
+                registerButton.disabled =
+                    false;
+
+                registerButton.textContent =
+                    "Create Account";
+
+            }
+
+        }
+
+
+        // ==========================================
+        // CONNECTION ERROR
+        // ==========================================
+
+        catch(error) {
+
+            console.error(error);
+
+            message.textContent =
+                "Cannot connect to backend. " +
+                "Please make sure FastAPI is running.";
+
+            message.style.color =
+                "#c62828";
+
+
+            registerButton.disabled =
+                false;
+
+            registerButton.textContent =
+                "Create Account";
+
+        }
+
+    }
+
+);
+
+</script>
+
+</body>
+
+</html>

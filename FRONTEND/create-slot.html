@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create New Slot</title>
+
+    <link rel="stylesheet" href="create-slot.css">
+
+    <style>
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: none;
+            border: 1px solid #ccc;
+            color: #333;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+
+        .back-button:hover {
+            background: #f2f2f2;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="page-container">
+
+    <div class="form-box">
+
+        <!-- BACK BUTTON -->
+        <button
+            type="button"
+            class="back-button"
+            onclick="window.location.href='farmer-dashboard.html'">
+            &larr; Back to Dashboard
+        </button>
+
+        <div class="page-header">
+
+            <h1>Create New Slot</h1>
+
+            <p>Enter your crop and slot information</p>
+
+        </div>
+
+
+        <form onsubmit="finishSlot(event)">
+
+            <!-- FARMER INFORMATION -->
+
+            <div class="section">
+
+                <h2>Farmer Information</h2>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label for="farmerName">
+                            Farmer Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="farmerName"
+                            placeholder="Enter farmer name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="mobile">
+                            Mobile Number
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="mobile"
+                            placeholder="Enter mobile number"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group full">
+
+                        <label for="farmLocation">
+                            Farm Location
+                        </label>
+
+                        <input
+                            type="text"
+                            id="farmLocation"
+                            placeholder="Enter farm location"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CROP DETAILS -->
+
+            <div class="section">
+
+                <h2>Crop Details</h2>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label for="cropName">
+                            Crop Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="cropName"
+                            placeholder="Example: Soybean"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="cropType">
+                            Crop Type
+                        </label>
+
+                        <input
+                            type="text"
+                            id="cropType"
+                            placeholder="Example: Grain"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="quantity">
+                            Quantity
+                        </label>
+
+                        <input
+                            type="number"
+                            id="quantity"
+                            placeholder="Enter quantity"
+                            min="1"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="quantityUnit">
+                            Quantity Unit
+                        </label>
+
+                        <select id="quantityUnit" required>
+
+                            <option value="">
+                                Select unit
+                            </option>
+
+                            <option value="Quintal">
+                                Quintal
+                            </option>
+
+                            <option value="Kg">
+                                Kg
+                            </option>
+
+                            <option value="Ton">
+                                Ton
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="expectedPrice">
+                            Expected Price
+                        </label>
+
+                        <input
+                            type="number"
+                            id="expectedPrice"
+                            placeholder="Enter expected price"
+                            min="0"
+                            step="0.01"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="priceUnit">
+                            Price Unit
+                        </label>
+
+                        <select id="priceUnit" required>
+
+                            <option value="">
+                                Select unit
+                            </option>
+
+                            <option value="per Quintal">
+                                Per Quintal
+                            </option>
+
+                            <option value="per Kg">
+                                Per Kg
+                            </option>
+
+                            <option value="per Ton">
+                                Per Ton
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="availableDate">
+                            Available Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="availableDate"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="slotClosingDate">
+                            Slot Closing Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="slotClosingDate"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="quality">
+                            Quality
+                        </label>
+
+                        <input
+                            type="text"
+                            id="quality"
+                            placeholder="Example: Good"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="moisture">
+                            Moisture
+                        </label>
+
+                        <input
+                            type="text"
+                            id="moisture"
+                            placeholder="Example: 12%"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group full">
+
+                        <label for="additionalRequirements">
+                            Additional Requirements / Information
+                        </label>
+
+                        <textarea
+                            id="additionalRequirements"
+                            placeholder="Enter additional information"
+                            rows="4"
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="finish-button"
+                id="finishButton">
+
+                Finish
+
+            </button>
+
+
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+async function finishSlot(event) {
+
+    event.preventDefault();
+
+
+    // ==========================================
+    // CHECK LOGIN
+    // ==========================================
+
+    const farmerId =
+        localStorage.getItem("farmerId");
+
+
+    if (!farmerId) {
+
+        alert(
+            "Please login as a farmer first."
+        );
+
+        window.location.href =
+            "login.html";
+
+        return;
+
+    }
+
+
+    // ==========================================
+    // GET BUTTON
+    // ==========================================
+
+    const finishButton =
+        document.getElementById("finishButton");
+
+
+    finishButton.disabled = true;
+
+    finishButton.textContent =
+        "Creating Slot...";
+
+
+    // ==========================================
+    // COLLECT FORM DATA
+    // ==========================================
+
+    const slotData = {
+
+        farmer_id: Number(farmerId),
+
+        farmer_name:
+            document.getElementById(
+                "farmerName"
+            ).value,
+
+        mobile:
+            document.getElementById(
+                "mobile"
+            ).value,
+
+        farm_location:
+            document.getElementById(
+                "farmLocation"
+            ).value,
+
+        crop_name:
+            document.getElementById(
+                "cropName"
+            ).value,
+
+        crop_type:
+            document.getElementById(
+                "cropType"
+            ).value,
+
+        quantity:
+            Number(
+                document.getElementById(
+                    "quantity"
+                ).value
+            ),
+
+        quantity_unit:
+            document.getElementById(
+                "quantityUnit"
+            ).value,
+
+        expected_price:
+            Number(
+                document.getElementById(
+                    "expectedPrice"
+                ).value
+            ),
+
+        price_unit:
+            document.getElementById(
+                "priceUnit"
+            ).value,
+
+        available_date:
+            document.getElementById(
+                "availableDate"
+            ).value,
+
+        slot_closing_date:
+            document.getElementById(
+                "slotClosingDate"
+            ).value,
+
+        quality:
+            document.getElementById(
+                "quality"
+            ).value,
+
+        moisture:
+            document.getElementById(
+                "moisture"
+            ).value,
+
+        additional_requirements:
+            document.getElementById(
+                "additionalRequirements"
+            ).value
+
+    };
+
+
+    // ==========================================
+    // SEND TO FASTAPI
+    // ==========================================
+
+    try {
+
+        const response = await fetch(
+
+            "http://127.0.0.1:8000/api/crop-slots/create",
+
+            {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type":
+                        "application/json"
+
+                },
+
+                body:
+                    JSON.stringify(slotData)
+
+            }
+
+        );
+
+
+        const data =
+            await response.json();
+
+
+        // ==========================================
+        // SUCCESS
+        // ==========================================
+
+        if (response.ok) {
+
+            /*
+            Save slot ID
+            */
+
+            localStorage.setItem(
+                "cropSlotId",
+                data.crop_slot_id
+            );
+
+
+            /*
+            Open summary page
+            with database slot ID
+            */
+
+            window.location.href =
+                "slot-summary.html?slot_id=" +
+                data.crop_slot_id;
+
+        }
+
+
+        // ==========================================
+        // BACKEND ERROR
+        // ==========================================
+
+        else {
+
+            alert(
+                data.detail ||
+                "Failed to create crop slot."
+            );
+
+            finishButton.disabled = false;
+
+            finishButton.textContent =
+                "Finish";
+
+        }
+
+    }
+
+
+    // ==========================================
+    // CONNECTION ERROR
+    // ==========================================
+
+    catch(error) {
+
+        console.error(error);
+
+        alert(
+            "Cannot connect to backend. " +
+            "Please make sure FastAPI is running."
+        );
+
+        finishButton.disabled = false;
+
+        finishButton.textContent =
+            "Finish";
+
+    }
+
+}
+
+</script>
+
+</body>
+
+</html>

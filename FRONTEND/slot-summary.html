@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Slot Summary</title>
+
+    <link rel="stylesheet"
+          href="slot-summary.css">
+
+</head>
+
+<body>
+
+<div class="page-container">
+
+    <div class="summary-box">
+
+        <div class="page-header">
+
+            <h1>Slot Summary</h1>
+
+            <p>
+                Your crop slot has been created successfully
+            </p>
+
+        </div>
+
+
+        <!-- ================= FARMER INFORMATION ================= -->
+
+        <div class="card">
+
+            <h2>Farmer Information</h2>
+
+            <div class="details">
+
+                <div>
+                    <span>Farmer Name</span>
+                    <strong id="farmerName">Loading...</strong>
+                </div>
+
+                <div>
+                    <span>Mobile Number</span>
+                    <strong id="mobile">Loading...</strong>
+                </div>
+
+                <div class="full">
+                    <span>Farm Location</span>
+                    <strong id="farmLocation">Loading...</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= CROP INFORMATION ================= -->
+
+        <div class="card">
+
+            <h2>Crop Details</h2>
+
+            <div class="details">
+
+                <div>
+                    <span>Crop ID</span>
+                    <strong id="cropSlotId">Loading...</strong>
+                </div>
+
+                <div>
+                    <span>Crop Name</span>
+                    <strong id="cropName">Loading...</strong>
+                </div>
+
+                <div>
+                    <span>Crop Type</span>
+                    <strong id="cropType">Loading...</strong>
+                </div>
+
+                <div>
+                    <span>Quantity</span>
+                    <strong id="quantity">Loading...</strong>
+                </div>
+
+                <div>
+                    <span>Quantity Unit</span>
+                    <strong id="quantityUnit">Loading...</strong>
+                </div>
+
+                <div>
+                    <span>Expected Price</span>
+                    <strong id="expectedPrice">Loading...</strong>
+                </div>
+
+                <div>
+                    <span>Price Unit</span>
+                    <strong id="priceUnit">Loading...</strong>
+                </div>
+
+                <div>
+                    <span>Available Date</span>
+                    <strong id="availableDate">Loading...</strong>
+                </div>
+
+                <div>
+                    <span>Slot Closing Date</span>
+                    <strong id="slotClosingDate">Loading...</strong>
+                </div>
+
+                <div>
+                    <span>Quality</span>
+                    <strong id="quality">Loading...</strong>
+                </div>
+
+                <div>
+                    <span>Moisture</span>
+                    <strong id="moisture">Loading...</strong>
+                </div>
+
+                <div class="full">
+                    <span>Additional Information</span>
+                    <strong id="additionalRequirements">
+                        Loading...
+                    </strong>
+                </div>
+
+                <div>
+                    <span>Status</span>
+                    <strong id="status">Loading...</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="success-message"
+            id="successMessage">
+
+            Loading slot information...
+
+        </div>
+
+
+        <button
+            class="dashboard-button"
+            onclick="goDashboard()">
+
+            Back to Dashboard
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+async function loadSlotSummary() {
+
+    // ==========================================
+    // GET SLOT ID FROM URL
+    // ==========================================
+
+    const urlParams =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const slotId =
+        urlParams.get("slot_id");
+
+
+    console.log(
+        "Slot ID:",
+        slotId
+    );
+
+
+    // ==========================================
+    // CHECK SLOT ID
+    // ==========================================
+
+    if (!slotId) {
+
+        document.getElementById(
+            "successMessage"
+        ).textContent =
+            "Slot ID not found.";
+
+        return;
+    }
+
+
+    // ==========================================
+    // FETCH SLOT FROM FASTAPI
+    // ==========================================
+
+    try {
+
+        const response = await fetch(
+
+            "http://127.0.0.1:8000/api/crop-slots/" +
+            slotId
+
+        );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Slot data:",
+            data
+        );
+
+
+        // ==========================================
+        // BACKEND ERROR
+        // ==========================================
+
+        if (!response.ok) {
+
+            document.getElementById(
+                "successMessage"
+            ).textContent =
+                data.detail ||
+                "Unable to load slot.";
+
+            return;
+        }
+
+
+        // ==========================================
+        // DISPLAY FARMER INFORMATION
+        // ==========================================
+
+        document.getElementById(
+            "farmerName"
+        ).textContent =
+            data.farmer_name || "-";
+
+
+        document.getElementById(
+            "mobile"
+        ).textContent =
+            data.mobile || "-";
+
+
+        document.getElementById(
+            "farmLocation"
+        ).textContent =
+            data.farm_location || "-";
+
+
+        // ==========================================
+        // DISPLAY CROP INFORMATION
+        // ==========================================
+
+        document.getElementById(
+            "cropSlotId"
+        ).textContent =
+            data.id || "-";
+
+
+        document.getElementById(
+            "cropName"
+        ).textContent =
+            data.crop_name || "-";
+
+
+        document.getElementById(
+            "cropType"
+        ).textContent =
+            data.crop_type || "-";
+
+
+        document.getElementById(
+            "quantity"
+        ).textContent =
+            data.quantity || "-";
+
+
+        document.getElementById(
+            "quantityUnit"
+        ).textContent =
+            data.quantity_unit || "-";
+
+
+        document.getElementById(
+            "expectedPrice"
+        ).textContent =
+            data.expected_price || "-";
+
+
+        document.getElementById(
+            "priceUnit"
+        ).textContent =
+            data.price_unit || "-";
+
+
+        document.getElementById(
+            "availableDate"
+        ).textContent =
+            data.available_date || "-";
+
+
+        document.getElementById(
+            "slotClosingDate"
+        ).textContent =
+            data.slot_closing_date || "-";
+
+
+        document.getElementById(
+            "quality"
+        ).textContent =
+            data.quality || "-";
+
+
+        document.getElementById(
+            "moisture"
+        ).textContent =
+            data.moisture || "-";
+
+
+        document.getElementById(
+            "additionalRequirements"
+        ).textContent =
+            data.additional_requirements || "-";
+
+
+        document.getElementById(
+            "status"
+        ).textContent =
+            data.status || "-";
+
+
+        // ==========================================
+        // SUCCESS
+        // ==========================================
+
+        document.getElementById(
+            "successMessage"
+        ).textContent =
+            "Slot information loaded successfully.";
+
+    }
+
+
+    catch(error) {
+
+        console.error(
+            "Slot summary error:",
+            error
+        );
+
+
+        document.getElementById(
+            "successMessage"
+        ).textContent =
+            "Cannot connect to backend.";
+
+    }
+
+}
+
+
+// ==========================================
+// BACK TO DASHBOARD
+// ==========================================
+
+function goDashboard() {
+
+    window.location.href =
+        "farmer-dashboard.html";
+
+}
+
+
+// ==========================================
+// LOAD SUMMARY
+// ==========================================
+
+loadSlotSummary();
+
+</script>
+
+</body>
+
+</html>

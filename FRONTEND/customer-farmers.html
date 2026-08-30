@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    Farmers | Krishi Connect
+</title>
+
+<link
+    rel="stylesheet"
+    href="customer-farmers.css"
+>
+
+
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="header">
+
+
+<div class="header-left">
+
+    <button
+        class="back-btn"
+        onclick="goBack()"
+        title="Back"
+    >
+        ←
+    </button>
+
+    <h1>
+        Farmers Marketplace
+    </h1>
+
+</div>
+
+
+</header>
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="container">
+
+
+<!-- PAGE TITLE -->
+
+<section class="page-title">
+
+    <span>
+        FARMER MARKETPLACE
+    </span>
+
+    <h2>
+        Connect With Farmers
+    </h2>
+
+    <p>
+        Explore available crops directly from
+        farmers on Krishi Connect.
+    </p>
+
+</section>
+
+
+
+<!-- STATUS -->
+
+<div
+    id="status"
+    class="status"
+>
+</div>
+
+
+
+<!-- RESULT INFO -->
+
+<div class="result-info">
+
+    <h3>
+        Available Farmer Crops
+    </h3>
+
+    <span id="slotCount">
+        Loading...
+    </span>
+
+</div>
+
+
+
+<!-- FARMER GRID -->
+
+<div
+    id="farmerGrid"
+    class="farmer-grid"
+>
+</div>
+
+
+
+<!-- NO DATA -->
+
+<div
+    id="noData"
+    class="no-data"
+>
+
+    <div class="icon">
+        🌾
+    </div>
+
+    <h3>
+        No Crop Slots Available
+    </h3>
+
+    <p>
+        There are currently no available crops
+        posted by farmers.
+    </p>
+
+</div>
+
+
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+    © 2026 Krishi Connect
+
+</div>
+
+
+</main>
+
+<script>
+
+
+// =========================================================
+// GO BACK
+// =========================================================
+
+function goBack() {
+
+    window.location.href =
+        "customer-dashboard.html";
+
+}
+
+
+
+// =========================================================
+// LOAD FARMER CROP SLOTS
+// =========================================================
+
+async function loadFarmerCrops() {
+
+    const status =
+        document.getElementById("status");
+
+    const grid =
+        document.getElementById("farmerGrid");
+
+    const noData =
+        document.getElementById("noData");
+
+    const slotCount =
+        document.getElementById("slotCount");
+
+
+    status.className =
+        "status show loading";
+
+    status.textContent =
+        "Loading farmer crops...";
+
+
+    try {
+
+
+        const response =
+            await fetch(
+                "http://127.0.0.1:8000/api/crop-slots"
+            );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Farmer crop slots:",
+            data
+        );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.detail ||
+                "Failed to load crop slots"
+            );
+
+        }
+
+
+        displayFarmerCrops(data);
+
+
+        status.className =
+            "status";
+
+
+    }
+
+
+    catch(error) {
+
+        console.error(
+            "Farmer crops error:",
+            error
+        );
+
+
+        status.className =
+            "status show error";
+
+        status.textContent =
+            "Cannot connect to backend. Please make sure FastAPI is running.";
+
+
+        slotCount.textContent =
+            "Connection error";
+
+    }
+
+}
+
+
+
+// =========================================================
+// DISPLAY FARMER CROPS
+// =========================================================
+
+function displayFarmerCrops(slots) {
+
+    const grid =
+        document.getElementById("farmerGrid");
+
+    const noData =
+        document.getElementById("noData");
+
+    const slotCount =
+        document.getElementById("slotCount");
+
+
+    grid.innerHTML = "";
+
+
+    slotCount.textContent =
+        slots.length +
+        (
+            slots.length === 1
+                ? " crop available"
+                : " crops available"
+        );
+
+
+    if (slots.length === 0) {
+
+        noData.classList.add("show");
+
+        return;
+
+    }
+
+
+    noData.classList.remove("show");
+
+
+    slots.forEach(function(slot) {
+
+
+        const card =
+            document.createElement("div");
+
+
+        card.className =
+            "farmer-card";
+
+
+        const farmerName =
+            slot.farmer_name || "-";
+
+
+        const cropName =
+            slot.crop_name || "-";
+
+
+        const cropType =
+            slot.crop_type || "-";
+
+
+        const quantity =
+            slot.quantity !== null &&
+            slot.quantity !== undefined
+                ? Number(slot.quantity).toLocaleString("en-IN")
+                : "-";
+
+
+        const quantityUnit =
+            slot.quantity_unit || "-";
+
+
+        const expectedPrice =
+            slot.expected_price !== null &&
+            slot.expected_price !== undefined
+                ? Number(
+                    slot.expected_price
+                  ).toLocaleString("en-IN")
+                : "-";
+
+
+        const priceUnit =
+            slot.price_unit || "-";
+
+
+        const location =
+            slot.farm_location || "-";
+
+
+        const quality =
+            slot.quality || "-";
+
+
+        const moisture =
+            slot.moisture || "-";
+
+
+        const availableDate =
+            formatDate(slot.available_date);
+
+
+        const closingDate =
+            formatDate(slot.slot_closing_date);
+
+
+        card.innerHTML = `
+
+            <div class="farmer-header">
+
+                <div class="farmer-icon">
+                    👨‍🌾
+                </div>
+
+                <div>
+
+                    <h3>
+                        ${escapeHTML(farmerName)}
+                    </h3>
+
+                    <span>
+                        Farmer
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="crop-section">
+
+                <div class="crop-label">
+                    Crop
+                </div>
+
+                <div class="crop-name">
+                    ${escapeHTML(cropName)}
+                </div>
+
+            </div>
+
+
+            <div class="details">
+
+
+                <div class="detail-row">
+
+                    <strong>
+                        Crop Type
+                    </strong>
+
+                    <span>
+                        ${escapeHTML(cropType)}
+                    </span>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <strong>
+                        Quantity
+                    </strong>
+
+                    <span>
+                        ${escapeHTML(quantity)}
+                        ${escapeHTML(quantityUnit)}
+                    </span>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <strong>
+                        Location
+                    </strong>
+
+                    <span>
+                        ${escapeHTML(location)}
+                    </span>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <strong>
+                        Quality
+                    </strong>
+
+                    <span>
+                        ${escapeHTML(quality)}
+                    </span>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <strong>
+                        Moisture
+                    </strong>
+
+                    <span>
+                        ${escapeHTML(moisture)}
+                    </span>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <strong>
+                        Available
+                    </strong>
+
+                    <span>
+                        ${escapeHTML(availableDate)}
+                    </span>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <strong>
+                        Slot Closing
+                    </strong>
+
+                    <span>
+                        ${escapeHTML(closingDate)}
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="expected-price">
+
+                <div class="expected-price-label">
+                    Farmer Expected Price
+                </div>
+
+                <div class="expected-price-value">
+
+                    ₹${escapeHTML(expectedPrice)}
+
+                    <small style="
+                        font-size:12px;
+                        font-weight:500;
+                        color:#68736c;
+                    ">
+
+                        / ${escapeHTML(priceUnit)}
+
+                    </small>
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        grid.appendChild(card);
+
+    });
+
+}
+
+
+
+// =========================================================
+// FORMAT DATE
+// =========================================================
+
+function formatDate(dateValue) {
+
+    if (!dateValue) {
+
+        return "-";
+
+    }
+
+
+    try {
+
+        const date =
+            new Date(dateValue);
+
+
+        if (isNaN(date.getTime())) {
+
+            return dateValue;
+
+        }
+
+
+        return date.toLocaleDateString(
+            "en-IN",
+            {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            }
+        );
+
+    }
+
+    catch(error) {
+
+        return dateValue;
+
+    }
+
+}
+
+
+
+// =========================================================
+// SECURITY
+// =========================================================
+
+function escapeHTML(value) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        String(value);
+
+    return div.innerHTML;
+
+}
+
+
+
+// =========================================================
+// LOAD PAGE
+// =========================================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        console.log(
+            "Customer Farmers page loaded"
+        );
+
+        loadFarmerCrops();
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Krishi Connect</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav>
+
+    <h2 id="logo">
+        🌱Krishi-Connect
+    </h2>
+
+    <p id="tagline">
+        Connect.Trade.Grow Together
+    </p>
+
+
+    <!-- LANGUAGE BUTTON -->
+
+    <button
+        id="languageButton"
+        onclick="toggleLanguage()">
+
+        EN | मराठी
+
+    </button>
+
+</nav>
+
+
+
+<!-- =====================================================
+     HOME PAGE
+===================================================== -->
+
+<div id="home">
+
+
+    <!-- =================================================
+         HERO SECTION
+    ================================================== -->
+
+    <section class="class">
+
+        <div class="class-work">
+
+
+            <h1 id="heroTitle">
+
+                Sell Direct. <br>
+                Get a Fair Price. <br>
+                <span>Fully Traceable.</span>
+
+            </h1>
+
+
+            <p id="heroDescription">
+
+                Empowering farmers. Connecting buyers.<br>
+                Building trust with every harvest
+
+            </p>
+
+
+            <button
+                id="marketplaceButton"
+                onclick="marketplace()">
+
+                Browse Marketplace
+
+            </button>
+
+
+            <button
+                id="howWorksButton"
+                class="place"
+                onclick="howitworks()">
+
+                How It Works
+
+            </button>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         LOGIN TITLE
+    ================================================== -->
+
+    <h2
+        id="chooseLogin"
+        class="title">
+
+        🌿Choose Your Login🌿
+
+    </h2>
+
+
+    <p
+        id="loginSubtitle"
+        class="subtitle">
+
+        Join the right platform for your needs
+
+    </p>
+
+
+
+    <!-- =================================================
+         LOGIN CARDS
+    ================================================= -->
+
+<div class="cards">
+
+        <!-- =============================================
+             FARMER
+        ============================================== -->
+
+        <div class="card">
+
+
+            <div class="icon">
+                👨‍🌾
+            </div>
+
+
+            <h2 id="farmerTitle">
+                I'm a Farmer
+            </h2>
+
+
+            <p id="farmerDescription">
+
+                List your crops, get fair prices
+                and sell directly to buyers.
+
+            </p>
+
+
+            <ul>
+
+                <li id="farmerFeature1">
+                    List Crop Batches
+                </li>
+
+                <li id="farmerFeature2">
+                    AI Price Advisor
+                </li>
+
+                <li id="farmerFeature3">
+                    Live Bidding
+                </li>
+
+                <li id="farmerFeature4">
+                    Earnings & Payments
+                </li>
+
+            </ul>
+
+
+            <button
+                id="farmerButton"
+                onclick="window.location.href='login.html'">
+
+                Login/Sign Up
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- =============================================
+             CUSTOMER
+        ============================================== -->
+
+        <div class="card-customer">
+
+
+            <div class="icon">
+                🛒
+            </div>
+
+
+            <h2 id="customerTitle">
+                I'm a Customer
+            </h2>
+
+
+            <p id="customerDescription">
+
+                Buy fresh produce directly from farmers.
+
+            </p>
+
+
+            <ul>
+
+                <li id="customerFeature1">
+                    Browse Fresh Produce
+                </li>
+
+                <li id="customerFeature2">
+                    Verified Farms
+                </li>
+
+                <li id="customerFeature3">
+                    Track Orders
+                </li>
+
+                <li id="customerFeature4">
+                    QR Traceability
+                </li>
+
+            </ul>
+
+
+            <button
+                id="customerButton"
+                onclick="window.location.href='customer-login.html'">
+
+                Login/Sign Up
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- =============================================
+             WHOLESALER
+        ============================================== -->
+
+        <div class="card-wholesaler">
+
+
+            <div class="icon">
+                🏭
+            </div>
+
+
+            <h2 id="wholesalerTitle">
+                I'm a Wholesaler
+            </h2>
+
+
+            <p id="wholesalerDescription">
+
+                Bid on bulk crops.
+
+            </p>
+
+
+            <ul>
+
+                <li id="wholesalerFeature1">
+                    Open Bidding
+                </li>
+
+                <li id="wholesalerFeature2">
+                    B2B Sourcing
+                </li>
+
+                <li id="wholesalerFeature3">
+                    Blockchain Verified
+                </li>
+
+                <li id="wholesalerFeature4">
+                    Active Deals
+                </li>
+
+            </ul>
+
+
+            <button
+                id="wholesalerButton"
+                onclick="window.location.href='wholesaler-login.html'">
+
+                Login/Sign Up 
+
+            </button>
+
+
+        </div>
+
+<!-- =============================================
+     TRANSPORTATION AGENCY
+============================================= -->
+
+<div class="card-transportation">
+
+    <div class="icon">
+        🚚
+    </div>
+
+    <h2 id="transportationTitle">
+        Transportation Agency
+    </h2>
+
+    <p id="transportationDescription">
+        Provide reliable transportation for farmers
+        and deliver crops safely to buyers.
+    </p>
+
+    <ul>
+
+        <li id="transportationFeature1">
+            Transport Crop Batches
+        </li>
+
+        <li id="transportationFeature2">
+            Manage Delivery Requests
+        </li>
+
+        <li id="transportationFeature3">
+            Track Vehicles
+        </li>
+
+        <li id="transportationFeature4">
+            Delivery Status
+        </li>
+
+    </ul>
+
+    <button
+        id="transportationButton"
+        onclick="window.location.href='transportation-login.html'">
+
+        Login/Sign Up
+
+    </button>
+
+</div>
+
+    </div>
+
+</div>
+
+    
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+/*
+=========================================================
+CURRENT LANGUAGE
+=========================================================
+*/
+
+let currentLanguage = "en";
+
+
+
+/*
+=========================================================
+ENGLISH TEXT
+=========================================================
+*/
+
+const englishText = {
+
+    tagline:
+        "Connect.Trade.Grow Together",
+
+    heroTitle:
+        "Sell Direct.<br>Get a Fair Price.<br><span>Fully Traceable.</span>",
+
+    heroDescription:
+        "Empowering farmers. Connecting buyers.<br>Building trust with every harvest",
+
+    marketplaceButton:
+        "Browse Marketplace",
+
+    howWorksButton:
+        "How It Works",
+
+    chooseLogin:
+        "🌿Choose Your Login🌿",
+
+    loginSubtitle:
+        "Join the right platform for your needs",
+
+
+    /* FARMER */
+
+    farmerTitle:
+        "I'm a Farmer",
+
+    farmerDescription:
+        "List your crops, get fair prices and sell directly to buyers.",
+
+    farmerFeature1:
+        "List Crop Batches",
+
+    farmerFeature2:
+        "AI Price Advisor",
+
+    farmerFeature3:
+        "Live Bidding",
+
+    farmerFeature4:
+        "Earnings & Payments",
+
+    farmerButton:
+        "Login/Sign Up",
+
+
+    /* CUSTOMER */
+
+    customerTitle:
+        "I'm a Customer",
+
+    customerDescription:
+        "Buy fresh produce directly from farmers.",
+
+    customerFeature1:
+        "Browse Fresh Produce",
+
+    customerFeature2:
+        "Verified Farms",
+
+    customerFeature3:
+        "Track Orders",
+
+    customerFeature4:
+        "QR Traceability",
+
+    customerButton:
+        "Login/Sign Up",
+
+
+    /* WHOLESALER */
+
+    wholesalerTitle:
+        "I'm a Wholesaler",
+
+    wholesalerDescription:
+        "Bid on bulk crops.",
+
+    wholesalerFeature1:
+        "Open Bidding",
+
+    wholesalerFeature2:
+        "B2B Sourcing",
+
+    wholesalerFeature3:
+        "Blockchain Verified",
+
+    wholesalerFeature4:
+        "Active Deals",
+
+};
+
+
+
+/*
+=========================================================
+MARATHI TEXT
+=========================================================
+*/
+
+const marathiText = {
+
+    tagline:
+        "जोडा. व्यापार करा. एकत्र प्रगती करा",
+
+    heroTitle:
+        "थेट विक्री करा.<br>योग्य किंमत मिळवा.<br><span>पूर्णपणे पारदर्शक.</span>",
+
+    heroDescription:
+        "शेतकऱ्यांना सक्षम करणे. खरेदीदारांना जोडणे.<br>प्रत्येक पिकासोबत विश्वास निर्माण करणे",
+
+    marketplaceButton:
+        "बाजारपेठ पहा",
+
+    howWorksButton:
+        "हे कसे कार्य करते?",
+
+    chooseLogin:
+        "🌿तुमचा लॉगिन प्रकार निवडा🌿",
+
+    loginSubtitle:
+        "तुमच्या गरजेनुसार योग्य प्लॅटफॉर्ममध्ये सामील व्हा",
+
+
+    /* FARMER */
+
+    farmerTitle:
+        "मी शेतकरी आहे",
+
+    farmerDescription:
+        "तुमची पिके नोंदवा, योग्य किंमत मिळवा आणि थेट खरेदीदारांना विक्री करा.",
+
+    farmerFeature1:
+        "पिकांची नोंदणी करा",
+
+    farmerFeature2:
+        "AI किंमत सल्लागार",
+
+    farmerFeature3:
+        "थेट बोली प्रक्रिया",
+
+    farmerFeature4:
+        "कमाई आणि पेमेंट",
+
+
+    farmerButton:
+        "लॉगिन / नोंदणी",
+
+
+    /* CUSTOMER */
+
+    customerTitle:
+        "मी ग्राहक आहे",
+
+    customerDescription:
+        "शेतकऱ्यांकडून थेट ताजे उत्पादन खरेदी करा.",
+
+    customerFeature1:
+        "ताजे उत्पादन पहा",
+
+    customerFeature2:
+        "सत्यापित शेततळे",
+
+    customerFeature3:
+        "ऑर्डरचा मागोवा घ्या",
+
+    customerFeature4:
+        "QR द्वारे उत्पादनाची माहिती",
+
+
+    customerButton:
+        "लॉगिन / नोंदणी",
+
+
+    /* WHOLESALER */
+
+    wholesalerTitle:
+        "मी घाऊक विक्रेता आहे",
+
+    wholesalerDescription:
+        "मोठ्या प्रमाणातील पिकांसाठी बोली लावा.",
+
+    wholesalerFeature1:
+        "खुली बोली प्रक्रिया",
+
+    wholesalerFeature2:
+        "B2B खरेदी",
+
+    wholesalerFeature3:
+        "ब्लॉकचेनद्वारे सत्यापित",
+
+    wholesalerFeature4:
+        "सक्रिय व्यवहार",
+
+
+    wholesalerButton:
+        "लॉगिन / नोंदणी"
+
+};
+
+
+
+/*
+=========================================================
+CHANGE LANGUAGE
+=========================================================
+*/
+
+function toggleLanguage() {
+
+
+    /*
+    =====================================================
+    MARATHI
+    =====================================================
+    */
+
+    if (currentLanguage === "en") {
+
+
+        currentLanguage = "mr";
+
+
+        const text = marathiText;
+
+
+        document.getElementById("tagline").innerHTML =
+            text.tagline;
+
+
+        document.getElementById("heroTitle").innerHTML =
+            text.heroTitle;
+
+
+        document.getElementById("heroDescription").innerHTML =
+            text.heroDescription;
+
+
+        document.getElementById("marketplaceButton").innerText =
+            text.marketplaceButton;
+
+
+        document.getElementById("howWorksButton").innerText =
+            text.howWorksButton;
+
+
+        document.getElementById("chooseLogin").innerText =
+            text.chooseLogin;
+
+
+        document.getElementById("loginSubtitle").innerText =
+            text.loginSubtitle;
+
+
+
+        /* FARMER */
+
+        document.getElementById("farmerTitle").innerText =
+            text.farmerTitle;
+
+
+        document.getElementById("farmerDescription").innerText =
+            text.farmerDescription;
+
+
+        document.getElementById("farmerFeature1").innerText =
+            text.farmerFeature1;
+
+
+        document.getElementById("farmerFeature2").innerText =
+            text.farmerFeature2;
+
+
+        document.getElementById("farmerFeature3").innerText =
+            text.farmerFeature3;
+
+
+        document.getElementById("farmerFeature4").innerText =
+            text.farmerFeature4;
+
+
+        document.getElementById("farmerButton").innerText =
+            text.farmerButton;
+
+
+
+        /* CUSTOMER */
+
+        document.getElementById("customerTitle").innerText =
+            text.customerTitle;
+
+
+        document.getElementById("customerDescription").innerText =
+            text.customerDescription;
+
+
+        document.getElementById("customerFeature1").innerText =
+            text.customerFeature1;
+
+
+        document.getElementById("customerFeature2").innerText =
+            text.customerFeature2;
+
+
+        document.getElementById("customerFeature3").innerText =
+            text.customerFeature3;
+
+
+        document.getElementById("customerFeature4").innerText =
+            text.customerFeature4;
+
+
+        document.getElementById("customerButton").innerText =
+            text.customerButton;
+
+
+
+        /* WHOLESALER */
+
+        document.getElementById("wholesalerTitle").innerText =
+            text.wholesalerTitle;
+
+
+        document.getElementById("wholesalerDescription").innerText =
+            text.wholesalerDescription;
+
+
+        document.getElementById("wholesalerFeature1").innerText =
+            text.wholesalerFeature1;
+
+
+        document.getElementById("wholesalerFeature2").innerText =
+            text.wholesalerFeature2;
+
+
+        document.getElementById("wholesalerFeature3").innerText =
+            text.wholesalerFeature3;
+
+
+        document.getElementById("wholesalerFeature4").innerText =
+            text.wholesalerFeature4;
+
+
+        document.getElementById("wholesalerButton").innerText =
+            text.wholesalerButton;
+
+
+        /*
+        =================================================
+        CHANGE BUTTON
+        =================================================
+        */
+
+        document.getElementById("languageButton").innerText =
+            "मराठी | EN";
+
+
+        document.documentElement.lang = "mr";
+
+    }
+
+
+    /*
+    =====================================================
+    ENGLISH
+    =====================================================
+    */
+
+    else {
+
+
+        currentLanguage = "en";
+
+
+        const text = englishText;
+
+
+        document.getElementById("tagline").innerHTML =
+            text.tagline;
+
+
+        document.getElementById("heroTitle").innerHTML =
+            text.heroTitle;
+
+
+        document.getElementById("heroDescription").innerHTML =
+            text.heroDescription;
+
+
+        document.getElementById("marketplaceButton").innerText =
+            text.marketplaceButton;
+
+
+        document.getElementById("howWorksButton").innerText =
+            text.howWorksButton;
+
+
+        document.getElementById("chooseLogin").innerText =
+            text.chooseLogin;
+
+
+        document.getElementById("loginSubtitle").innerText =
+            text.loginSubtitle;
+
+
+
+        /* FARMER */
+
+        document.getElementById("farmerTitle").innerText =
+            text.farmerTitle;
+
+
+        document.getElementById("farmerDescription").innerText =
+            text.farmerDescription;
+
+
+        document.getElementById("farmerFeature1").innerText =
+            text.farmerFeature1;
+
+
+        document.getElementById("farmerFeature2").innerText =
+            text.farmerFeature2;
+
+
+        document.getElementById("farmerFeature3").innerText =
+            text.farmerFeature3;
+
+
+        document.getElementById("farmerFeature4").innerText =
+            text.farmerFeature4;
+
+
+        document.getElementById("farmerButton").innerText =
+            text.farmerButton;
+
+
+
+        /* CUSTOMER */
+
+        document.getElementById("customerTitle").innerText =
+            text.customerTitle;
+
+
+        document.getElementById("customerDescription").innerText =
+            text.customerDescription;
+
+
+        document.getElementById("customerFeature1").innerText =
+            text.customerFeature1;
+
+
+        document.getElementById("customerFeature2").innerText =
+            text.customerFeature2;
+
+
+        document.getElementById("customerFeature3").innerText =
+            text.customerFeature3;
+
+
+        document.getElementById("customerFeature4").innerText =
+            text.customerFeature4;
+
+
+        document.getElementById("customerButton").innerText =
+            text.customerButton;
+
+
+
+        /* WHOLESALER */
+
+        document.getElementById("wholesalerTitle").innerText =
+            text.wholesalerTitle;
+
+
+        document.getElementById("wholesalerDescription").innerText =
+            text.wholesalerDescription;
+
+
+        document.getElementById("wholesalerFeature1").innerText =
+            text.wholesalerFeature1;
+
+
+        document.getElementById("wholesalerFeature2").innerText =
+            text.wholesalerFeature2;
+
+
+        document.getElementById("wholesalerFeature3").innerText =
+            text.wholesalerFeature3;
+
+
+        document.getElementById("wholesalerFeature4").innerText =
+            text.wholesalerFeature4;
+
+
+        document.getElementById("wholesalerButton").innerText =
+            text.wholesalerButton;
+
+
+        /*
+        =================================================
+        CHANGE BUTTON
+        =================================================
+        */
+
+        document.getElementById("languageButton").innerText =
+            "EN | मराठी";
+
+
+        document.documentElement.lang = "en";
+
+    }
+
+}
+
+
+
+/*
+=========================================================
+MARKETPLACE FUNCTION
+=========================================================
+*/
+
+function marketplace() {
+
+    /*
+       Put your marketplace page here.
+       Example:
+
+       window.location.href = "marketplace.html";
+    */
+
+    alert(
+        currentLanguage === "mr"
+            ? "बाजारपेठ लवकरच उपलब्ध होईल."
+            : "Marketplace will be available soon."
+    );
+
+}
+
+
+
+/*
+=========================================================
+HOW IT WORKS FUNCTION
+=========================================================
+*/
+
+function howitworks() {
+
+    alert(
+        currentLanguage === "mr"
+            ? "कृषी-कनेक्ट शेतकरी आणि खरेदीदारांना थेट जोडते."
+            : "Krishi Connect directly connects farmers and buyers."
+    );
+
+}
+
+</script>
+
+
+</body>
+
+</html>

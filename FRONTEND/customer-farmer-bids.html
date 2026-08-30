@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Farmer Crops | Krishi Connect</title>
+
+    <link rel="stylesheet" href="customer-farmer-bids.css">
+    
+</head>
+
+<body>
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header class="header">
+
+        <div class="header-left">
+
+            <button
+                class="back-btn"
+                onclick="goBack()">
+
+                ←
+
+            </button>
+
+            <div>
+
+                <h1>
+                    Farmer Crop Listings
+                </h1>
+
+                <p>
+                    Explore crops available from farmers
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="customer-badge">
+
+            🛒 Customer
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================
+         MAIN
+    ========================== -->
+
+    <main class="container">
+
+
+        <!-- PAGE INTRO -->
+
+        <section class="page-intro">
+
+            <span>
+                DIRECT FARMER CONNECTION
+            </span>
+
+            <h2>
+                Available Farmer Crops
+            </h2>
+
+            <p>
+                Browse crops listed by farmers and
+                check their expected prices and quantities.
+            </p>
+
+        </section>
+
+
+
+        <!-- =========================
+             SEARCH
+        ========================== -->
+
+        <section class="search-section">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search crop, location or farmer..."
+            >
+
+            <button onclick="searchCrops()">
+                🔍 Search
+            </button>
+
+            <button
+                class="clear-btn"
+                onclick="clearSearch()">
+
+                Clear
+
+            </button>
+
+        </section>
+
+
+
+        <!-- =========================
+             STATUS
+        ========================== -->
+
+        <div
+            id="status"
+            class="status">
+
+        </div>
+
+
+
+        <!-- =========================
+             RESULT HEADER
+        ========================== -->
+
+        <div class="result-header">
+
+            <h2>
+                Available Crops
+            </h2>
+
+            <span id="cropCount">
+                Loading...
+            </span>
+
+        </div>
+
+
+
+        <!-- =========================
+             CROP GRID
+        ========================== -->
+
+        <section
+            id="cropGrid"
+            class="crop-grid">
+
+        </section>
+
+
+
+        <!-- =========================
+             NO DATA
+        ========================== -->
+
+        <section
+            id="noData"
+            class="no-data">
+
+            <div class="no-data-icon">
+                🌾
+            </div>
+
+            <h2>
+                No Crops Found
+            </h2>
+
+            <p>
+                No available farmer crops match your search.
+            </p>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <p>
+            © 2026 Krishi Connect
+        </p>
+
+        <span>
+            Connecting Customers with Farmers
+        </span>
+
+    </footer>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+
+        // =====================================================
+        // GLOBAL DATA
+        // =====================================================
+
+        let allCrops = [];
+
+
+
+        // =====================================================
+        // GO BACK
+        // =====================================================
+
+        function goBack() {
+
+            window.location.href =
+                "customer-dashboard.html";
+
+        }
+
+
+
+        // =====================================================
+        // LOAD FARMER CROPS
+        // =====================================================
+
+        async function loadFarmerCrops() {
+
+            const status =
+                document.getElementById("status");
+
+            const cropCount =
+                document.getElementById("cropCount");
+
+
+            status.className =
+                "status show loading";
+
+            status.textContent =
+                "Loading farmer crop listings...";
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        "http://127.0.0.1:8000/api/crop-slots"
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                console.log(
+                    "Farmer crop response:",
+                    data
+                );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.detail ||
+                        "Failed to load farmer crops"
+                    );
+
+                }
+
+
+                // Save data
+
+                allCrops = data;
+
+
+                // Display
+
+                displayCrops(allCrops);
+
+
+                status.className =
+                    "status";
+
+
+            }
+
+
+            catch(error) {
+
+                console.error(
+                    "Farmer crop error:",
+                    error
+                );
+
+
+                status.className =
+                    "status show error";
+
+
+                status.textContent =
+                    "Cannot connect to backend. Please make sure FastAPI is running.";
+
+
+                cropCount.textContent =
+                    "Connection error";
+
+            }
+
+        }
+
+
+
+        // =====================================================
+        // DISPLAY CROPS
+        // =====================================================
+
+        function displayCrops(crops) {
+
+            const grid =
+                document.getElementById("cropGrid");
+
+
+            const noData =
+                document.getElementById("noData");
+
+
+            const cropCount =
+                document.getElementById("cropCount");
+
+
+            grid.innerHTML = "";
+
+
+            cropCount.textContent =
+                crops.length +
+                (
+                    crops.length === 1
+                        ? " crop found"
+                        : " crops found"
+                );
+
+
+            if (crops.length === 0) {
+
+                noData.classList.add("show");
+
+                return;
+
+            }
+
+
+            noData.classList.remove("show");
+
+
+            crops.forEach(function(crop) {
+
+
+                const card =
+                    document.createElement("div");
+
+
+                card.className =
+                    "crop-card";
+
+
+                const cropName =
+                    crop.crop_name || "-";
+
+
+                const cropType =
+                    crop.crop_type || "-";
+
+
+                const farmerName =
+                    crop.farmer_name || "-";
+
+
+                const location =
+                    crop.farm_location || "-";
+
+
+                const quantity =
+                    crop.quantity !== null &&
+                    crop.quantity !== undefined
+                        ? crop.quantity
+                        : "-";
+
+
+                const quantityUnit =
+                    crop.quantity_unit || "";
+
+
+                const expectedPrice =
+                    crop.expected_price !== null &&
+                    crop.expected_price !== undefined
+                        ? Number(
+                            crop.expected_price
+                          ).toLocaleString("en-IN")
+                        : "-";
+
+
+                const priceUnit =
+                    crop.price_unit || "";
+
+
+                const quality =
+                    crop.quality || "-";
+
+
+                const availableDate =
+                    formatDate(
+                        crop.available_date
+                    );
+
+
+                card.innerHTML = `
+
+                    <div class="crop-top">
+
+                        <div class="crop-icon">
+                            🌾
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                ${escapeHTML(cropName)}
+                            </h3>
+
+                            <span>
+                                ${escapeHTML(cropType)}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="farmer-info">
+
+                        <div class="detail">
+
+                            <strong>
+                                👨‍🌾 Farmer
+                            </strong>
+
+                            <span>
+                                ${escapeHTML(farmerName)}
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <strong>
+                                📍 Location
+                            </strong>
+
+                            <span>
+                                ${escapeHTML(location)}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="price-box">
+
+                        <small>
+                            Expected Price
+                        </small>
+
+                        <strong>
+                            ₹${expectedPrice}
+                        </strong>
+
+                        <span>
+                            / ${escapeHTML(priceUnit)}
+                        </span>
+
+                    </div>
+
+
+                    <div class="details">
+
+                        <div class="detail">
+
+                            <strong>
+                                Quantity
+                            </strong>
+
+                            <span>
+                                ${escapeHTML(
+                                    String(quantity)
+                                )}
+                                ${escapeHTML(
+                                    quantityUnit
+                                )}
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <strong>
+                                Quality
+                            </strong>
+
+                            <span>
+                                ${escapeHTML(quality)}
+                            </span>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <strong>
+                                Available From
+                            </strong>
+
+                            <span>
+                                ${escapeHTML(
+                                    availableDate
+                                )}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="connect-btn"
+                        onclick="viewCropDetails(${crop.id})">
+
+                        View Crop Details
+                        <span>→</span>
+
+                    </button>
+
+                `;
+
+
+                grid.appendChild(card);
+
+            });
+
+        }
+
+
+
+        // =====================================================
+        // SEARCH
+        // =====================================================
+
+        function searchCrops() {
+
+            const input =
+                document.getElementById(
+                    "searchInput"
+                );
+
+
+            const searchText =
+                input.value
+                    .trim()
+                    .toLowerCase();
+
+
+            if (searchText === "") {
+
+                displayCrops(allCrops);
+
+                return;
+
+            }
+
+
+            const filtered =
+                allCrops.filter(function(crop) {
+
+
+                    const cropName =
+                        String(
+                            crop.crop_name || ""
+                        ).toLowerCase();
+
+
+                    const farmerName =
+                        String(
+                            crop.farmer_name || ""
+                        ).toLowerCase();
+
+
+                    const location =
+                        String(
+                            crop.farm_location || ""
+                        ).toLowerCase();
+
+
+                    const cropType =
+                        String(
+                            crop.crop_type || ""
+                        ).toLowerCase();
+
+
+                    return (
+
+                        cropName.includes(searchText) ||
+
+                        farmerName.includes(searchText) ||
+
+                        location.includes(searchText) ||
+
+                        cropType.includes(searchText)
+
+                    );
+
+                });
+
+
+            displayCrops(filtered);
+
+        }
+
+
+
+        // =====================================================
+        // ENTER KEY SEARCH
+        // =====================================================
+
+        document
+            .getElementById("searchInput")
+            .addEventListener(
+                "keydown",
+                function(event) {
+
+                    if (event.key === "Enter") {
+
+                        searchCrops();
+
+                    }
+
+                }
+            );
+
+
+
+        // =====================================================
+        // CLEAR SEARCH
+        // =====================================================
+
+        function clearSearch() {
+
+            document.getElementById(
+                "searchInput"
+            ).value = "";
+
+
+            displayCrops(allCrops);
+
+        }
+
+
+
+        // =====================================================
+        // VIEW CROP DETAILS
+        // =====================================================
+
+        function viewCropDetails(cropId) {
+
+            localStorage.setItem(
+                "selectedCropSlotId",
+                String(cropId)
+            );
+
+
+            alert(
+                "Crop details selected. Detailed farmer connection can be added next."
+            );
+
+        }
+
+
+
+        // =====================================================
+        // FORMAT DATE
+        // =====================================================
+
+        function formatDate(dateValue) {
+
+            if (!dateValue) {
+
+                return "-";
+
+            }
+
+
+            try {
+
+                const date =
+                    new Date(dateValue);
+
+
+                if (
+                    isNaN(
+                        date.getTime()
+                    )
+                ) {
+
+                    return dateValue;
+
+                }
+
+
+                return date.toLocaleDateString(
+                    "en-IN",
+                    {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric"
+                    }
+                );
+
+            }
+
+            catch(error) {
+
+                return dateValue;
+
+            }
+
+        }
+
+
+
+        // =====================================================
+        // ESCAPE HTML
+        // =====================================================
+
+        function escapeHTML(value) {
+
+            const div =
+                document.createElement("div");
+
+
+            div.textContent =
+                String(value);
+
+
+            return div.innerHTML;
+
+        }
+
+
+
+        // =====================================================
+        // PAGE LOAD
+        // =====================================================
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function() {
+
+                console.log(
+                    "Customer Farmer Bids page loaded"
+                );
+
+
+                loadFarmerCrops();
+
+            }
+        );
+
+
+    </script>
+
+</body>
+
+</html>
+

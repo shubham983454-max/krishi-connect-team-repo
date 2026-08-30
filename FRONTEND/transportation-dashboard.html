@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Transportation Agency Dashboard</title>
+
+    <link rel="stylesheet"
+          href="transportation-dashboard.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+
+    <div class="logo">
+
+        🌱 Krishi-Connect
+
+    </div>
+
+
+    <div class="agency-box">
+
+        🚚
+
+        <h3 id="agencyName">
+            Transportation Agency
+        </h3>
+
+        <p id="agencyLocation">
+            Location
+        </p>
+
+    </div>
+
+
+    <ul class="menu">
+
+        <li class="active">
+            🏠 Dashboard
+        </li>
+
+        <li>
+            🚜 Transport Requests
+        </li>
+
+        <li>
+            🚚 My Vehicles
+        </li>
+
+        <li>
+            📦 Active Deliveries
+        </li>
+
+        <li>
+            💰 Earnings
+        </li>
+
+        <li>
+            📊 Reports
+        </li>
+
+    </ul>
+
+
+    <button
+        class="logout-button"
+        onclick="logout()">
+
+        Logout
+
+    </button>
+
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
+
+<main class="main-content">
+
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div>
+
+            <h1>
+                Transportation Agency Dashboard
+            </h1>
+
+            <p>
+                Manage crop transportation and deliveries
+            </p>
+
+        </div>
+
+
+        <div class="profile">
+
+            👤
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =================================================
+         STAT CARDS
+    ================================================== -->
+
+    <section class="stats">
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📋
+            </div>
+
+            <div>
+
+                <p>
+                    Transport Requests
+                </p>
+
+                <h2>
+                    12
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🚚
+            </div>
+
+            <div>
+
+                <p>
+                    Active Vehicles
+                </p>
+
+                <h2>
+                    8
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📦
+            </div>
+
+            <div>
+
+                <p>
+                    Active Deliveries
+                </p>
+
+                <h2>
+                    5
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                💰
+            </div>
+
+            <div>
+
+                <p>
+                    Monthly Earnings
+                </p>
+
+                <h2>
+                    ₹48,500
+                </h2>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         MAIN CARDS
+    ================================================== -->
+
+    <section class="main-cards">
+
+
+        <!-- TRANSPORT REQUESTS -->
+
+        <div class="large-card">
+
+            <div class="card-header">
+
+                <h2>
+                    New Transport Requests
+                </h2>
+
+                <button>
+                    View All
+                </button>
+
+            </div>
+
+
+            <div class="request">
+
+                <div class="request-icon">
+                    🌾
+                </div>
+
+                <div class="request-info">
+
+                    <h3>
+                        Soybean Crop
+                    </h3>
+
+                    <p>
+                        Farmer: Raj Patil
+                    </p>
+
+                    <p>
+                        📍 Pune → Mumbai
+                    </p>
+
+                </div>
+
+                <div class="request-details">
+
+                    <strong>
+                        5 Ton
+                    </strong>
+
+                    <span>
+                        ₹8,000
+                    </span>
+
+                </div>
+
+
+                <button class="accept-button">
+                    Accept
+                </button>
+
+            </div>
+
+
+
+            <div class="request">
+
+                <div class="request-icon">
+                    🌾
+                </div>
+
+                <div class="request-info">
+
+                    <h3>
+                        Turmeric
+                    </h3>
+
+                    <p>
+                        Farmer: Amit Jadhav
+                    </p>
+
+                    <p>
+                        📍 Sangli → Pune
+                    </p>
+
+                </div>
+
+                <div class="request-details">
+
+                    <strong>
+                        3 Ton
+                    </strong>
+
+                    <span>
+                        ₹5,500
+                    </span>
+
+                </div>
+
+
+                <button class="accept-button">
+                    Accept
+                </button>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- QUICK ACTIONS -->
+
+        <div class="quick-card">
+
+            <h2>
+                Quick Actions
+            </h2>
+
+
+            <button class="action-button">
+                🚚 Add Vehicle
+            </button>
+
+
+            <button class="action-button">
+                📋 View Transport Requests
+            </button>
+
+
+            <button class="action-button">
+                📦 Track Delivery
+            </button>
+
+
+            <button class="action-button">
+                💰 View Earnings
+            </button>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         ACTIVE DELIVERIES
+    ================================================== -->
+
+    <section class="delivery-card">
+
+        <div class="card-header">
+
+            <h2>
+                Active Deliveries
+            </h2>
+
+            <button>
+                View All
+            </button>
+
+        </div>
+
+
+        <div class="delivery-table">
+
+            <div class="table-header">
+
+                <span>
+                    Crop
+                </span>
+
+                <span>
+                    From
+                </span>
+
+                <span>
+                    To
+                </span>
+
+                <span>
+                    Quantity
+                </span>
+
+                <span>
+                    Status
+                </span>
+
+            </div>
+
+
+            <div class="table-row">
+
+                <span>
+                    Soybean
+                </span>
+
+                <span>
+                    Pune
+                </span>
+
+                <span>
+                    Mumbai
+                </span>
+
+                <span>
+                    5 Ton
+                </span>
+
+                <span class="status">
+                    In Transit
+                </span>
+
+            </div>
+
+
+            <div class="table-row">
+
+                <span>
+                    Turmeric
+                </span>
+
+                <span>
+                    Sangli
+                </span>
+
+                <span>
+                    Pune
+                </span>
+
+                <span>
+                    3 Ton
+                </span>
+
+                <span class="status">
+                    Loading
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+
+<script>
+
+
+/* =====================================================
+   CHECK LOGIN
+===================================================== */
+
+const loggedIn =
+    localStorage.getItem("transportationLoggedIn");
+
+
+if (loggedIn !== "true") {
+
+    window.location.href =
+        "transportation-login.html";
+
+}
+
+
+
+/* =====================================================
+   LOAD AGENCY INFORMATION
+===================================================== */
+
+const savedAgency =
+    localStorage.getItem("transportationAgency");
+
+
+if (savedAgency) {
+
+    const agency =
+        JSON.parse(savedAgency);
+
+
+    document.getElementById("agencyName")
+        .innerText =
+        agency.agencyName;
+
+
+    document.getElementById("agencyLocation")
+        .innerText =
+        agency.location;
+
+}
+
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout() {
+
+    localStorage.removeItem(
+        "transportationLoggedIn"
+    );
+
+
+    window.location.href =
+        "transportation-login.html";
+
+}
+
+</script>
+
+
+</body>
+
+</html>

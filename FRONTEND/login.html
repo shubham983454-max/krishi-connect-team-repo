@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Farmer Login</title>
+
+    <link rel="stylesheet" href="login.css">
+
+</head>
+
+<body>
+
+<div class="login-container">
+
+    <div class="login-box">
+
+        <h1>Farmer Login</h1>
+
+        <p class="subtitle">
+            Login to your Farmer Dashboard
+        </p>
+
+        <form id="loginForm">
+
+            <label for="mobile">
+                Mobile Number
+            </label>
+
+            <input
+                type="tel"
+                id="mobile"
+                placeholder="Enter mobile number"
+                required
+            >
+
+            <label for="password">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter password"
+                required
+            >
+
+            <button type="submit">
+                Login
+            </button>
+
+        </form>
+        <p style="margin-top: 18px; text-align: center;">
+    <a href="index.html"
+       style="
+           color: #087532;
+           text-decoration: none;
+           font-weight: 600;
+           font-size: 14px;
+       ">
+        ← Go to Main Dashboard
+    </a>
+</p>
+
+        <p id="message"></p>
+
+        <p class="register-link">
+
+            Don't have an account?
+
+            <a href="farmer-register.html">
+                Register here
+            </a>
+
+        </p>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const loginForm = document.getElementById("loginForm");
+
+const message = document.getElementById("message");
+
+
+loginForm.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    const mobile =
+        document.getElementById("mobile").value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+
+    message.textContent = "Logging in...";
+    message.style.color = "#267a35";
+
+
+    try {
+
+        const response = await fetch(
+            "http://127.0.0.1:8000/api/farmers/login",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    mobile: mobile,
+                    password: password
+                })
+            }
+        );
+
+
+        const data = await response.json();
+
+        console.log("Login response:", data);
+        console.log("Status:", response.status);
+
+
+        if (!response.ok) {
+
+            message.textContent =
+                data.detail ||
+                "Invalid mobile number or password.";
+
+            message.style.color = "#c62828";
+
+            return;
+        }
+
+
+        // =========================================
+        // CREATE ONE COMPLETE FARMER OBJECT
+        // =========================================
+
+        const farmerData = {
+
+            farmer_id: data.farmer_id,
+
+            name: data.name,
+
+            mobile: data.mobile,
+
+            farm_location: data.farm_location
+
+        };
+
+
+        console.log(
+            "Farmer data to save:",
+            farmerData
+        );
+
+
+        // =========================================
+        // SAVE FARMER DATA
+        // =========================================
+
+        localStorage.setItem(
+            "farmerData",
+            JSON.stringify(farmerData)
+        );
+
+
+        // =========================================
+        // VERIFY STORAGE
+        // =========================================
+
+        console.log(
+            "Saved farmerData:",
+            localStorage.getItem("farmerData")
+        );
+
+
+        // Individual values also saved
+        localStorage.setItem(
+            "farmerId",
+            String(data.farmer_id)
+        );
+
+        localStorage.setItem(
+            "farmerName",
+            data.name || ""
+        );
+
+        localStorage.setItem(
+            "farmerMobile",
+            data.mobile || ""
+        );
+
+        localStorage.setItem(
+            "farmLocation",
+            data.farm_location || ""
+        );
+
+
+        message.textContent =
+            "Login successful!";
+
+        message.style.color =
+            "#267a35";
+
+
+        // =========================================
+        // GO TO DASHBOARD
+        // =========================================
+
+        setTimeout(function() {
+
+            window.location.href =
+                "farmer-dashboard.html";
+
+        }, 500);
+
+    }
+
+
+    catch(error) {
+
+        console.error(
+            "Login error:",
+            error
+        );
+
+        message.textContent =
+            "Cannot connect to backend.";
+
+        message.style.color =
+            "#c62828";
+
+    }
+
+});
+
+</script>
+
+</body>
+
+</html>
