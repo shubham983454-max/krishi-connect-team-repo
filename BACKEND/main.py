@@ -804,3 +804,17 @@ def search_market_prices(
     ).limit(50).all()
 
     return prices
+# =========================================================
+# GET ALL WHOLESALERS - TEST
+# =========================================================
+
+@app.get("/api/wholesalers")
+def get_all_wholesalers(
+    db: Session = Depends(get_db)
+):
+
+    wholesalers = db.query(
+        models.Wholesaler
+    ).all()
+
+    return wholesalers
