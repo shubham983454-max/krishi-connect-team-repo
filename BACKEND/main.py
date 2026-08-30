@@ -773,7 +773,9 @@ def get_market_prices(
 
     prices = db.query(
         models.MarketPrice
-    ).all()
+    ).order_by(
+        models.MarketPrice.date.desc()
+    ).limit(50).all()
 
     return prices
 @app.get("/api/market-prices/search")
